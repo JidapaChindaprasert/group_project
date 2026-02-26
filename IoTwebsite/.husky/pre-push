@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # เช็คว่าตอนนี้อยู่ branch อะไร
-branch="$(git rev-parse --abbrev-ref HEAD)"
+branch="$(git rev-parse --abbrev-r+620ef HEAD)"
 
 # ถ้าเป็น main ให้ด่าแล้วหยุด push
 if [ "$branch" = "main" ]; then
