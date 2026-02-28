@@ -5,13 +5,13 @@ import Academic from './pages/academic/Academic';
 import Admission from './pages/admission/Admission';
 import Faculty from './pages/faculty/Faculty';
 
-import Navbar from './components/Navbar'; // ดึง Navbar เข้ามา
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <div style={{ padding: '20px' }}>
+      <div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
