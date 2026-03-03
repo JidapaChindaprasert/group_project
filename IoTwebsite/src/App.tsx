@@ -6,12 +6,14 @@ import Admission from './pages/admission/Admission';
 import Faculty from './pages/faculty/Faculty';
 
 import Navbar from './components/Navbar';
+import FloatingCalendar from './components/calendar';
+import Footer from './components/footer';
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <div>
+      <div className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -21,6 +23,8 @@ function App() {
           <Route path="*" element={<h2>404 - ไม่พบหน้านี้</h2>} />
         </Routes>
       </div>
+      <Footer />
+      <FloatingCalendar />
     </BrowserRouter>
   );
 }

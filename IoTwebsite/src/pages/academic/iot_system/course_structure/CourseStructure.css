@@ -1,10 +1,8 @@
-/* CourseStructure.css */
+/* CourseStructure.css for IoT System (standardized) */
 .course-structure-section {
-    max-width: 100%;
-    /* Fill parent width entirely */
+    max-width: 1400px;
     margin: 80px auto;
-    padding: 0 10px;
-    /* Minimal side space */
+    padding: 0;
 }
 
 .course-structure-title {
@@ -15,36 +13,39 @@
 }
 
 .course-structure-layout {
-    display: grid;
-    grid-template-columns: 350px 1fr;
+    display: flex;
     gap: 40px;
     align-items: stretch;
-    /* Match height of both columns */
 }
 
-/* Left side: PDF Mockup */
-.course-structure-left {
+.course-structure-left,
+.course-structure-right {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    height: 100%;
+}
+
+/* Standardized ratio: Table 1.5, PDF 1 */
+.course-structure-left {
+    flex: 1.5;
+}
+
+.course-structure-right {
+    flex: 1;
 }
 
 .pdf-mockup {
     width: 100%;
     flex-grow: 1;
-    /* Fill the vertical space */
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 30px 20px;
+    border-radius: 20px;
+    padding: 40px 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Center mockup content vertically if taller than content */
 }
 
 .pdf-mockup-header {
@@ -63,7 +64,7 @@
 }
 
 .course-button {
-    background-color: #2b4cc7;
+    background-color: var(--color-secondary);
     color: white;
     border: none;
     border-radius: 12px;
@@ -72,9 +73,10 @@
     font-size: 1rem;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(43, 76, 199, 0.3);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
     transition: transform 0.2s, background-color 0.2s;
     width: 100%;
+    margin-top: 30px;
 }
 
 .course-button:hover {
@@ -82,24 +84,30 @@
     transform: translateY(-2px);
 }
 
-.right-button {
-    margin-top: 30px;
+.course-button.secondary {
+    background-color: var(--color-foreground-2);
 }
 
 /* Responsive */
 @media (max-width: 1100px) {
     .course-structure-layout {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: center;
     }
 
     .course-structure-left {
+        order: 1;
+        width: 100%;
+    }
+
+    .course-structure-right {
+        order: 2;
+        width: 100%;
         max-width: 500px;
-        margin: 0 auto;
     }
 
     .pdf-mockup {
         aspect-ratio: 1 / 1.414;
-        /* Document feel on mobile */
         min-height: 450px;
     }
 }

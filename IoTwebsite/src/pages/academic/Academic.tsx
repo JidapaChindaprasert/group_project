@@ -3,6 +3,8 @@ import iotSystemImg from '../../assets/iot_system.png';
 import industrialPhysicsImg from '../../assets/industrial_physics.png';
 import computerIotImg from '../../assets/computer_iot.png';
 import IOTSystem from './iot_system/IOTSystem';
+import PHYIOTSystem from './physiot_system/phyIOTSystem';
+import ContinuingProgram from './continue/ContinuingProgram';
 
 interface ProgramCard {
     titleEn: string;
@@ -65,7 +67,8 @@ export default function Academic() {
 
             {/* Detailed Section below Hero Cards */}
             <IOTSystem />
-
+            <PHYIOTSystem />
+            <ContinuingProgram />
         </div>
     );
 }
