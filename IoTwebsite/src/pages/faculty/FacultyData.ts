@@ -270,7 +270,7 @@ export const professorsIoT = [
       ],
     },
     research: [{
-      image: "cropped-สรพง1-1.jpg",
+      image: "/ProfessorResearch/cropped-สรพง1-1.jpg",
       link: "",
     },
     {
@@ -321,11 +321,11 @@ export const professorsIoT = [
       ],
     },
     research: [{
-      image: "cropped-อรรทสิท2.jpg",
+      image: "/ProfessorResearch/cropped-อรรทสิท2.jpg",
       link: "",
     },
   {
-      image: "cropped-อรรทสิท1-1.jpg",
+      image: "/ProfessorResearch/cropped-อรรทสิท1-1.jpg",
       link: ""
   }],
   },
@@ -1020,3 +1020,4 @@ export const staffPhys = [
     }],
   },
 ];
+
