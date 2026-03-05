@@ -92,7 +92,7 @@
 
 @media (max-width: 640px) {
     .continuing-program-page {
-        padding: 40px 20px;
+        padding: 40px 30px;
     }
 
     .continuing-program-title-en {
@@ -272,6 +272,15 @@
         clip-path: none;
         border-radius: 20px;
         width: 100%;
-        padding-bottom: 30px;
+        padding: 0;
+        background-color: white;
+        border: 1px solid rgba(30, 58, 138, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .ribbon-border-inner {
+        clip-path: none;
+        padding: 40px 20px;
+        background-color: transparent;
     }
 }

@@ -13,6 +13,35 @@
     margin-bottom: 60px;
 }
 
+@media (max-width: 768px) {
+    .phy-course-header-top {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .phy-course-main-title {
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .phy-year-selectors {
+        width: 100%;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .phy-year-btn {
+        padding: 10px 25px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+    }
+}
+
 .phy-course-main-title {
     font: var(--font-section-th);
     color: var(--color-secondary);

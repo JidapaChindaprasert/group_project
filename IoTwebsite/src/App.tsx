@@ -3,7 +3,7 @@ import Home from './pages/home/Home';
 import About from './pages/about/About';
 import Academic from './pages/academic/Academic';
 import Admission from './pages/admission/Admission';
-import Faculty from './pages/faculty/Faculty';
+import Faculty from './pages/faculty/FacultyIoT';
 
 import Navbar from './components/Navbar';
 import FloatingCalendar from './components/calendar';

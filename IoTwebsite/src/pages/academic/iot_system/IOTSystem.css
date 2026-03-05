@@ -29,7 +29,8 @@
 /* Card Container */
 .iot-system-card-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    /* Align to right like Continuing Program */
     width: 100%;
     margin: 0 0 60px;
 }
@@ -37,32 +38,38 @@
 /* Info Card (Blue Box) */
 .iot-system-info-card {
     background-color: var(--color-secondary);
-    border-radius: 20px;
-    padding: 56px;
-    color: #ffffff;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    box-shadow: 0 5px 20px rgba(30, 58, 138, 0.2);
+    color: white;
+    padding: 60px 50px;
+    border-radius: 30px;
+    max-width: 600px;
+    box-shadow: 0 20px 50px rgba(30, 58, 138, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .iot-system-card-title {
-    font: var(--font-h1);
-    margin: 0 0 10px 0;
+    font-family: var(--font-head-th);
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
 }
 
 .iot-system-card-divider {
     width: 100%;
-    height: 2px;
+    height: 1px;
     background-color: rgba(255, 255, 255, 0.3);
-    margin-bottom: 25px;
 }
 
 .iot-system-card-text {
-    font: var(--font-body);
-    line-height: 1.6;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: justify;
+    opacity: 0.95;
+    word-break: break-word;
     margin: 0;
-    white-space: pre-wrap;
 }
 
 /* Career Section */
@@ -220,13 +227,13 @@
 /* Uniform page padding per breakpoint */
 @media (max-width: 1024px) {
     .iot-system-page {
-        padding: 40px;
+        padding: 56px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     .iot-system-page {
-        padding: 32px;
+        padding: 30px;
     }
 }
 

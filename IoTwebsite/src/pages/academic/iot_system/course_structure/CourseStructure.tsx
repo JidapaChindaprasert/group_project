@@ -20,23 +20,24 @@ export default function CourseStructureIoT() {
                 {/* Right: PDF */}
                 <div className="course-structure-right">
                     <div className="pdf-mockup">
-                        <div className="pdf-mockup-header">
-                            คณะวิศวกรรมศาสตร์<br />
-                            สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
-                        </div>
-                        <div className="pdf-mockup-body">
-                            <strong>
-                                หลักสูตรวิศวกรรมศาสตรบัณฑิต<br />
-                                สาขาวิชาวิศวกรรมระบบไอโอทีและสารสนเทศ<br />
-                                หลักสูตรปรับปรุง พ.ศ. 2569
-                            </strong>
-                            <br /><br />
-                            <p>รายละเอียดเล่มหลักสูตรและข้อมูลพื้นฐานเกี่ยวกับหลักสูตร</p>
-                        </div>
+                        <iframe
+                            src="https://drive.google.com/file/d/1U8mm7DxtNpFDbuWFgt22wRNEKulB_OU3/preview"
+                            width="100%"
+                            height="100%"
+                            title="Curriculum PDF Preview"
+                            style={{ border: 'none' }}
+                        />
                     </div>
-                    <button className="course-button">
-                        เล่มหลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ 2565
-                    </button>
+                    <a
+                        href="https://drive.google.com/file/d/1U8mm7DxtNpFDbuWFgt22wRNEKulB_OU3/view"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: 'none', display: 'block', width: '100%' }}
+                    >
+                        <button className="course-button">
+                            เล่มหลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ 2565
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@ interface ProgramCard {
     titleTh: string;
     image: string;
     alt: string;
+    href: string;
 }
 
 const programs: ProgramCard[] = [
@@ -20,12 +21,14 @@ const programs: ProgramCard[] = [
         titleTh: 'วิศวกรรมระบบไอโอทีและสารสนเทศ',
         image: iotSystemImg,
         alt: 'IoT System and Information',
+        href: '#iot-system',
     },
     {
         titleEn: 'INDUSTRIAL PHYSICS AND IOT SYSTEM INFORMATION',
         titleTh: 'ฟิสิกส์อุตสาหกรรม วิศวกรรมระบบไอโอที (หลักสูตรสองปริญญา)',
         image: industrialPhysicsImg,
         alt: 'Industrial Physics and IoT',
+        href: '#physiot-system',
     },
     {
         titleEn: 'COMPUTER AND IOT',
@@ -33,6 +36,7 @@ const programs: ProgramCard[] = [
         titleTh: 'วิศวกรรมคอมพิวเตอร์และไอโอที (ต่อเนื่อง)',
         image: computerIotImg,
         alt: 'Computer and IoT',
+        href: '#continuing-program',
     },
 ];
 
@@ -43,32 +47,40 @@ export default function Academic() {
                 <h1 className="academic-main-title">Our academics</h1>
                 <div className="academic-cards-container">
                     {programs.map((program, index) => (
-                        <div className="academic-card" key={index}>
-                            <div className="academic-card-header">
-                                <p className="academic-title-en">{program.titleEn}</p>
-                                {program.titleEnSub && (
-                                    <p className="academic-title-en-sub">{program.titleEnSub}</p>
-                                )}
-                            </div>
-                            <div className="academic-card-image-wrapper">
-                                <img
-                                    src={program.image}
-                                    alt={program.alt}
-                                    className="academic-card-image"
-                                />
-                                <div className="academic-card-overlay">
-                                    <p className="academic-title-th">{program.titleTh}</p>
+                        <a href={program.href} className="academic-card-link" key={index}>
+                            <div className="academic-card">
+                                <div className="academic-card-header">
+                                    <p className="academic-title-en">{program.titleEn}</p>
+                                    {program.titleEnSub && (
+                                        <p className="academic-title-en-sub">{program.titleEnSub}</p>
+                                    )}
+                                </div>
+                                <div className="academic-card-image-wrapper">
+                                    <img
+                                        src={program.image}
+                                        alt={program.alt}
+                                        className="academic-card-image"
+                                    />
+                                    <div className="academic-card-overlay">
+                                        <p className="academic-title-th">{program.titleTh}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>
 
             {/* Detailed Section below Hero Cards */}
-            <IOTSystem />
-            <PHYIOTSystem />
-            <ContinuingProgram />
+            <div id="iot-system">
+                <IOTSystem />
+            </div>
+            <div id="physiot-system">
+                <PHYIOTSystem />
+            </div>
+            <div id="continuing-program">
+                <ContinuingProgram />
+            </div>
         </div>
     );
 }

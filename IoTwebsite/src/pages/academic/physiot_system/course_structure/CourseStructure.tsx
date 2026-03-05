@@ -30,42 +30,25 @@ export default function CourseStructurePhyIoT() {
 
                 {/* Right Side: PDF Mockup (Standardized Position) */}
                 <div className="phy-course-structure-right">
-                    <div className="phy-pdf-mockup">
-                        <div className="phy-pdf-content">
-                            <h4 className="phy-pdf-title">หลักสูตรวิศวกรรมศาสตรบัณฑิต</h4>
-                            <h4 className="phy-pdf-subtitle">สาขาวิชาวิศวกรรมไอโอทีและสารสนเทศ</h4>
-                            <p className="phy-pdf-version">หลักสูตรปรับปรุง พ.ศ. 2569</p>
-
-                            <div className="phy-pdf-details">
-                                <div className="phy-pdf-section">
-                                    <p><strong>หมวดที่ 1 ข้อมูลพื้นฐานเกี่ยวกับหลักสูตร</strong></p>
-                                    <div className="phy-pdf-row">
-                                        <span>ชื่อภาษาไทย</span>
-                                        <span>หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาวิศวกรรมไอโอทีและสารสนเทศ</span>
-                                    </div>
-                                    <div className="phy-pdf-row">
-                                        <span>ชื่อภาษาอังกฤษ</span>
-                                        <span>Bachelor of Engineering Program in IoT and Information Engineering</span>
-                                    </div>
-                                </div>
-
-                                <div className="phy-pdf-section">
-                                    <p><strong>ชื่อและสาขาวิชา</strong></p>
-                                    <div className="phy-pdf-row">
-                                        <span>(ภาษาไทย)</span>
-                                        <span>วิศวกรรมศาสตรบัณฑิต สาขาวิชาวิศวกรรมไอโอทีและสารสนเทศ</span>
-                                    </div>
-                                    <div className="phy-pdf-row">
-                                        <span>(ภาษาอังกฤษ)</span>
-                                        <span>Bachelor of Engineering (IoT and Information Engineering)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="phy-pdf-mockup" style={{ height: '600px' }}>
+                        <iframe
+                            src="https://drive.google.com/file/d/1cHSWjO3A03lcGqgbT9PR51d335LfaVVo/preview"
+                            width="100%"
+                            height="100%"
+                            title="Curriculum PDF Preview"
+                            style={{ border: 'none' }}
+                        />
                     </div>
-                    <button className="phy-course-action-btn">
-                        เล่มหลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ 2565
-                    </button>
+                    <a
+                        href="https://drive.google.com/file/d/1cHSWjO3A03lcGqgbT9PR51d335LfaVVo/view"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: 'none', display: 'block', width: '100%' }}
+                    >
+                        <button className="phy-course-action-btn">
+                            เล่มหลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ 2565
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>

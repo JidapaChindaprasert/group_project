@@ -184,7 +184,7 @@
 /* Responsive */
 @media (max-width: 1024px) {
     .phy-iot-system-page {
-        padding: 40px;
+        padding: 56px;
     }
 
     .phy-iot-system-card-container {
@@ -235,8 +235,8 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     .phy-iot-system-page {
-        padding: 32px;
+        padding: 30px;
     }
 }

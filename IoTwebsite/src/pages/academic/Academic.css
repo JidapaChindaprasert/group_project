@@ -1,4 +1,8 @@
 /* Academic Page Styles */
+html {
+    scroll-behavior: smooth;
+}
+
 .academic-page {
     width: 100%;
     max-width: 100%;
@@ -6,6 +10,18 @@
     /* Hero section will handle height */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
+}
+
+.academic-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.academic-card-link:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.05);
 }
 
 .academic-hero {
@@ -22,11 +38,11 @@
 /* Uniform padding per breakpoint */
 @media (max-width: 1024px) {
     .academic-hero {
-        padding: 40px;
+        padding: 56px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     .academic-hero {
         padding: 32px;
     }

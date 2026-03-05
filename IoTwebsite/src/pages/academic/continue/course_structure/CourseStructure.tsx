@@ -20,22 +20,26 @@ export default function CourseStructureContinue() {
                 {/* Right: PDF */}
                 <div className="course-structure-right">
                     <div className="pdf-mockup">
-                        <div className="pdf-mockup-header">
-                            คณะวิศวกรรมศาสตร์<br />
-                            สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
-                        </div>
-                        <div className="pdf-mockup-body">
-                            <strong>หลักสูตรวิศวกรรมศาสตรบัณฑิต<br />
-                                สาขาวิชาวิศวกรรมคอมพิวเตอร์และไอโอที (ต่อเนื่อง)<br />
-                                หลักสูตรปรับปรุง พ.ศ. 2565</strong>
-                            <br /><br />
-                            <p>หลักสูตรที่มุ่งเน้นการต่อยอดทักษะจากระดับอนุปริญญา
-                                สู่การเป็นวิศวกรมืออาชีพในยุค Digital Transformation</p>
+                        <div className="pdf-mockup-body" style={{ height: '600px' }}>
+                            <iframe
+                                src="https://drive.google.com/file/d/1U8mm7DxtNpFDbuWFgt22wRNEKulB_OU3/preview"
+                                width="100%"
+                                height="100%"
+                                title="Curriculum PDF Preview"
+                                style={{ border: 'none' }}
+                            />
                         </div>
                     </div>
-                    <button className="course-button">
-                        เล่มหลักสูตรวิศวกรรมคอมพิวเตอร์และไอโอที (ต่อเนื่อง)
-                    </button>
+                    <a
+                        href="https://drive.google.com/file/d/1U8mm7DxtNpFDbuWFgt22wRNEKulB_OU3/view"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: 'none', display: 'block', width: '100%' }}
+                    >
+                        <button className="course-button">
+                            เล่มหลักสูตรวิศวกรรมคอมพิวเตอร์และไอโอที (ต่อเนื่อง)
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
