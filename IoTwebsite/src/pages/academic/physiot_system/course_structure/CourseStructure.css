@@ -1,5 +1,5 @@
 /* CourseStructure.css for PHYIOT (standardized) */
-.phy-course-structure-section {
+.course-structure-section {
     max-width: 1400px;
     margin: 80px auto;
     padding: 0;
@@ -42,7 +42,7 @@
     }
 }
 
-.phy-course-main-title {
+.course-structure-title {
     font: var(--font-section-th);
     color: var(--color-secondary);
     font-size: 2.2rem;
@@ -81,24 +81,24 @@
 }
 
 /* Layout Grid - Standardized ratio: PDF 1, Table 1.5 */
-.phy-course-structure-layout {
+.course-structure-layout {
     display: flex;
     gap: 40px;
     align-items: stretch;
 }
 
-.phy-course-structure-left,
-.phy-course-structure-right {
+.course-structure-left,
+.course-structure-right {
     display: flex;
     flex-direction: column;
 }
 
-.phy-course-structure-left {
+.course-structure-left {
     flex: 1.5;
     /* Table (Swapped order in TSX) */
 }
 
-.phy-course-structure-right {
+.course-structure-right {
     flex: 1;
     /* PDF (Swapped order in TSX) */
 }
@@ -192,17 +192,17 @@
 
 /* Responsive */
 @media (max-width: 1100px) {
-    .phy-course-structure-layout {
+    .course-structure-layout {
         flex-direction: column;
         align-items: center;
     }
 
-    .phy-course-structure-left {
+    .course-structure-left {
         order: 1;
         width: 100%;
     }
 
-    .phy-course-structure-right {
+    .course-structure-right {
         order: 2;
         width: 100%;
         max-width: 500px;

@@ -2,16 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './calendar.css'; // นำเข้าไฟล์ CSS
 
 // --- ข้อมูลวันสำคัญ ---
-const IMPORTANT_DATES: Record<string, string> = {
-  '2024-01-01': 'วันขึ้นปีใหม่',
-  '2024-02-14': 'วันวาเลนไทน์ ❤️',
-  '2024-04-13': 'วันสงกรานต์',
-  '2024-05-01': 'วันแรงงาน',
-  '2024-12-05': 'วันพ่อแห่งชาติ',
-  '2024-08-12': 'วันแม่แห่งชาติ',
-  // เพิ่มวันที่ทดสอบ (วันนี้ + 3 วัน)
-  [new Date(new Date().setDate(new Date().getDate() + 3)).toISOString().split('T')[0]]: 'วันทดสอบ (อีก 3 วัน)'
-};
+// Dates will be fetched from API
 
 const MONTHS_TH = [
   'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
@@ -24,10 +15,11 @@ const FloatingCalendar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
-  
+  const [importantDates, setImportantDates] = useState<Record<string, string>>({});
+
   // State สำหรับควบคุม Tooltip
   const [tooltipDate, setTooltipDate] = useState<string | null>(null);
-  const [tooltipContent, setTooltipContent] = useState<string>('');
+  // const [tooltipContent, setTooltipContent] = useState<string>('');
 
   const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +32,21 @@ const FloatingCalendar: React.FC = () => {
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/api/important-dates")
+      .then(res => res.json())
+      .then(data => {
+        const datesMap: Record<string, string> = {};
+        data.forEach((item: any) => {
+          if (item.date && item.event_text) {
+            datesMap[item.date] = item.event_text;
+          }
+        });
+        setImportantDates(datesMap);
+      })
+      .catch(err => console.error("Error fetching dates:", err));
   }, []);
 
   const getDaysInMonth = (date: Date) => {
@@ -68,15 +75,13 @@ const FloatingCalendar: React.FC = () => {
     setSelectedDate(newDate);
   };
 
-  const handleDateEnter = (day: number, eventText: string) => {
+  const handleDateEnter = (day: number) => {
     const key = getDateKey(currentDate.getFullYear(), currentDate.getMonth(), day);
     setTooltipDate(key);
-    setTooltipContent(eventText);
   };
 
   const handleDateLeave = () => {
     setTooltipDate(null);
-    setTooltipContent('');
   };
 
   const renderEmptyDays = () => {
@@ -94,28 +99,28 @@ const FloatingCalendar: React.FC = () => {
 
     for (let i = 1; i <= daysInMonth; i++) {
       const dateKey = getDateKey(currentYear, currentMonth, i);
-      const eventText = IMPORTANT_DATES[dateKey];
+      const eventText = importantDates[dateKey];
       const hasEvent = !!eventText;
 
-      const isToday = 
-        i === new Date().getDate() && 
-        currentMonth === new Date().getMonth() && 
+      const isToday =
+        i === new Date().getDate() &&
+        currentMonth === new Date().getMonth() &&
         currentYear === new Date().getFullYear();
-      
-      const isSelected = 
-        i === selectedDate.getDate() && 
-        currentMonth === selectedDate.getMonth() && 
+
+      const isSelected =
+        i === selectedDate.getDate() &&
+        currentMonth === selectedDate.getMonth() &&
         currentYear === selectedDate.getFullYear();
 
       const isTooltipActive = tooltipDate === dateKey;
 
       daysArray.push(
-        <div 
-          key={i} 
+        <div
+          key={i}
           className="calendar-day-wrapper"
-          onMouseEnter={() => hasEvent && handleDateEnter(i, eventText)}
+          onMouseEnter={() => hasEvent && handleDateEnter(i)}
           onMouseLeave={handleDateLeave}
-          onTouchStart={() => hasEvent && handleDateEnter(i, eventText)}
+          onTouchStart={() => hasEvent && handleDateEnter(i)}
         >
           {/* --- Tooltip --- */}
           {hasEvent && isTooltipActive && (
@@ -148,11 +153,11 @@ const FloatingCalendar: React.FC = () => {
   };
 
   const todayKey = getDateKey(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-  const hasEventToday = !!IMPORTANT_DATES[todayKey];
+  const hasEventToday = !!importantDates[todayKey];
 
   return (
     <div className="app-container">
-      
+
       {/* --- ส่วนที่เป็นไอคอนลอย (Trigger) --- */}
       <div ref={calendarRef} className="calendar-wrapper">
         <button
@@ -167,7 +172,7 @@ const FloatingCalendar: React.FC = () => {
 
         {/* --- ส่วนปฏิทินที่เด้งออกมา (Popup) --- */}
         <div className={`calendar-popup ${isOpen ? 'open' : ''}`}>
-          
+
           {/* Header */}
           <div className="popup-header">
             <button onClick={() => changeMonth(-1)} className="nav-btn">

@@ -1,18 +1,49 @@
+import { useState, useEffect } from 'react';
 import './CourseStructure.css';
-import CourseTable from './CourseTable';
+import CourseTable from '../../CourseTable/CourseTable';
+import { type Course } from '../../curriculumData';
 
 export default function CourseStructureContinue() {
+    const [selectedYear, setSelectedYear] = useState<string>('2565');
+    const [courses, setCourses] = useState<Course[]>([]);
+    const availableYears = ['2568', '2565'];
+
+    useEffect(() => {
+        fetch(`/api/curriculum/continue/${selectedYear}`)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setCourses(data);
+                }
+            })
+            .catch(err => console.error("Error fetching curriculum:", err));
+    }, [selectedYear]);
+
     return (
-        <div className="course-structure-section">
+        <div className="course-structure-section continue-theme">
             <h2 className="course-structure-title">
-                โครงสร้างหลักสูตรวิศวกรรมคอมพิวเตอร์และไอโอที (ต่อเนื่อง)
+                โครงสร้างหลักสูตรวิศวกรรมคอมพิวเตอร์และไอโอที (ต่อเนื่อง) {selectedYear}
             </h2>
 
             <div className="course-structure-layout">
                 {/* Left: Table */}
                 <div className="course-structure-left">
-                    <CourseTable />
-                    <button className="course-button secondary">
+                    {/* Year Selection Controls */}
+                    <div className="curriculum-year-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px', justifyContent: 'center' }}>
+                        {availableYears.map(year => (
+                            <button
+                                key={year}
+                                className={`course-button ${selectedYear === year ? 'active' : 'secondary'}`}
+                                onClick={() => setSelectedYear(year)}
+                                style={{ padding: '8px 16px', minWidth: '80px' }}
+                            >
+                                {year}
+                            </button>
+                        ))}
+                    </div>
+
+                    <CourseTable courses={courses} theme="continue-theme" years={4} />
+                    <button className="course-button secondary" style={{ marginTop: '20px' }}>
                         แผนการศึกษาหลักสูตรต่อเนื่อง
                     </button>
                 </div>
