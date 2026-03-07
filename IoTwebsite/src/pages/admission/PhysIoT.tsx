@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'; 
 import { useLocation } from 'react-router-dom';    
-import './PhysIoT.css';
+import './course.css';
 
 const PhysIoT = () => {
 

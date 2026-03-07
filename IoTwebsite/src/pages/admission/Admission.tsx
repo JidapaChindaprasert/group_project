@@ -23,7 +23,6 @@ const courses = [
     thaiSub: "วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ",
     engSub: "B.Eng. IoT system and information Engineering",
 
-
     image: IoTImg,
     counts: { portfolio: 75, quota: 15, admission: 5 },
     fee: "25,000",

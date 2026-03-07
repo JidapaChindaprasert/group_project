@@ -3,10 +3,10 @@
 
  * ! [IMPORTANT - READ THIS FIRST]
  * -vlj'.shf^djvo
- * แสดงการทำงานคร่าวๆ (มั้ง)
+ * แสดงการทำงานคร่าวๆ
  * ตกแต่งยังไม่เรียบร้อย (ขก.)
- * มี ไฟล์ .tsx 3 และ .css 3
- * เดี๋ยวค่อยเขียนอธิบายการทำงานของโค้ด
+ * มี ไฟล์ .tsx 3 และ .css 2
+ * เดี๋ยวเขียนอธิบายการทำงานของโค้ด
 
  * ใน App.tsx ได้เพิ่ม <Route path="/admission" element={<Admission />} />
                     <Route path="/course/iot" element={<IoT />} />
