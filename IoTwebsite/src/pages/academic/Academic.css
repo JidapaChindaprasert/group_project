@@ -118,6 +118,8 @@ html {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     aspect-ratio: 16 / 10;
     max-height: 180px;
+    background-color: #e5e7eb;
+    /* Fallback placeholder color */
 }
 
 .academic-card-image {
@@ -125,6 +127,8 @@ html {
     height: 100%;
     object-fit: cover;
     display: block;
+    position: relative;
+    z-index: 1;
 }
 
 /* Dark blue overlay at bottom with Thai text */
@@ -141,6 +145,8 @@ html {
     display: flex;
     align-items: flex-end;
     min-height: 36%;
+    z-index: 2;
+    /* Ensure overlay is on top of image */
 }
 
 .academic-title-th {

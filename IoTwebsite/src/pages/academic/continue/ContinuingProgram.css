@@ -1,11 +1,12 @@
 .continuing-program-page {
-    padding: 100px 56px;
+    padding: 80px 56px;
     background-color: var(--color-bg);
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     gap: 30px;
     position: relative;
+    overflow-x: hidden;
 }
 
 .continuing-program-header {
@@ -77,16 +78,25 @@
 
 /* Response for tablets/mobile */
 @media (max-width: 1024px) {
+    .continuing-program-page {
+        padding: 60px 40px;
+    }
+
     .continuing-program-title-en {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
 
     .continuing-program-title-en span {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     .continuing-program-content {
         justify-content: center;
+    }
+
+    .continuing-program-hero-card {
+        max-width: 100%;
+        padding: 40px 30px;
     }
 }
 
