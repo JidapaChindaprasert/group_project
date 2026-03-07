@@ -84,6 +84,10 @@ export default function Admission() {
     course.thaiMain.includes(searchQuery)
   );
 
+  const handleOpenLink = (url: string) => {
+  window.open(url, "_blank");
+  };
+
   return (
     <div className="admission-layout">
       <div className="admission-top-bar">
@@ -178,15 +182,15 @@ export default function Admission() {
               <div className="action-buttons-group">
                 <button 
                   className="btn-light" 
-                  onClick={() => window.open(course.detailLink, "_blank")}
+                  onClick={() => handleOpenLink(course.detailLink)}
                 >
-                  Detail
+                Detail
                 </button>
                 <button 
                   className="btn-dark" 
-                  onClick={() => window.open("https://admission.reg.kmitl.ac.th/#/undergraduate/explore", "_blank")}
+                  onClick={() => handleOpenLink("https://admission.reg.kmitl.ac.th/#/undergraduate/explore")}
                 >
-                  Enroll
+                Enroll
                 </button>
               </div>
             </div>

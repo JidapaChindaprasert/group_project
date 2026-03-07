@@ -121,6 +121,10 @@
   cursor: pointer;
   border: 1.5px solid #1054b3;
 }
+.btn-light:hover, .btn-dark:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 12px rgba(16, 84, 179, 0.2);
+}
 
 .btn-dark { background: #1D3557; color: white; }
 
