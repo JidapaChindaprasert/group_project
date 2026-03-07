@@ -3,11 +3,11 @@
 .iot-header-white {
   background: #F5F5F1;
   padding: 40px 8%;
-  color: #2f57c3;
+  color: #2853ca;
 }
 
 .course-main-title { font-size: 2.4rem; font-weight: 800; margin: 0; }
-.course-type-label { font-size: 1.2rem; opacity: 0.6; margin-top: 5px; }
+.course-type-label { font-size: 1.6rem; opacity: 0.8; margin-top: 5px; }
 
 .iot-dark-body {
   background: #1e3a8a;
@@ -17,15 +17,16 @@
 
 .iot-tabs-navigation {
   display: flex;
+  border-radius: 25px;
   gap: 15px;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
   align-items: stretch;
 }
 
 .iot-tab-box {
   flex: 1;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 25px;
   border: none;
   background: #2f57c3;
   color: white;
@@ -34,11 +35,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
+  transition: 0.2s;
   min-height: 100px; 
 }
 
 .iot-tab-box.active {
+  border-radius: 25px 25px 0px 0px;
   background: #F5F5F1;
   color: #1D3557;
   font-weight: bold;
@@ -64,7 +66,7 @@
 
 .iot-accordion-list-bg {
   background: #F5F5F1;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   padding: 30px;
 }
 
@@ -78,10 +80,11 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .accordion-head-click.is-expanded {
-  border-radius: 12px 12px 12px 12px;
+  border-radius: 12px 12px 0px 0px;
   margin-bottom: 0;
 }
 
