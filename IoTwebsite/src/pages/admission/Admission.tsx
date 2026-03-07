@@ -21,6 +21,9 @@ const courses = [
     subTitle: "Bachelor of Engineering",
     thaiMain: "ปริญญาตรี วิศวกรรมศาสตรบัณฑิต วิศวกรรมระบบไอโอทีและสารสนเทศ",
     thaiSub: "วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ",
+    engSub: "B.Eng. IoT system and information Engineering",
+
+
     image: IoTImg,
     counts: { portfolio: 75, quota: 15, admission: 5 },
     fee: "25,000",
@@ -32,7 +35,9 @@ const courses = [
     title: "B.SC. INDUSTRIAL PHYSICS AND B.ENG. IOT SYSTEM AND INFORMATION",
     subTitle: "(DUAL DEGREE) | Bachelor of Science and Engineering",
     thaiMain: "วท.บ. ฟิสิกส์อุตสาหกรรม และ วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ (หลักสูตรสองปริญญา)",
-    thaiSub: "วท.บ. ฟิสิกส์อุตสาหกรรม และ วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ (หลักสูตรสองปริญญา)",
+    thaiSub: "วท.บ. ฟิสิกส์อุตสาหกรรม และ วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ",
+    engSub: "B.Sc. Industrial physics and B.Eng. IoT system and information Engineering",
+
     image: PhysIoTImg,
     counts: { portfolio: 27, quota: 10, admission: 8 },
     fee: "40,000",
@@ -45,6 +50,8 @@ const courses = [
     subTitle: "Bachelor of Engineering",
     thaiMain: "ปริญญาตรี วิศวกรรมศาสตรบัณฑิต (คอมพิวเตอร์และไอโอที) หลักสูตรต่อเนื่อง",
     thaiSub: "วศ.บ. วิศวกรรมคอมพิวเตอร์และไอโอที (ต่อเนื่อง)",
+    engSub: "B.Eng. Computer and IoT (Continuing program)",
+    
     image: ComIoTImg,
     counts: null,
     fee: "35,000",
@@ -56,12 +63,13 @@ const courses = [
     title: "M.ENG. (AIOT AND INFORMATION) AND Ph.D. (AIOT AND INFORMATION)",
     subTitle: "Master of Engineering and Doctor of Philosophy",
     thaiMain: "ปริญญาโท วิศวกรรมศาสตรมหาบัณฑิต / ปริญญาเอก ปรัชญาดุษฎีบัณฑิต เอไอโอทีและสารสนเทศ",
-    thaiSub: "วศ.ม. และ ปร.ด. เอไอโอทีและสารสนเทศ  (M.Eng. and Ph.D. AIoT and information) ",
+    thaiSub: "วศ.ม. เอไอโอทีและสารสนเทศ  (M.Eng. AIoT and information) ",
+    engSub: "ปร.ด. เอไอโอทีและสารสนเทศ (Ph.D. AIoT and information)",
     
     image: AIIoTImg,
     counts: null,
     fee: "ตามระเบียบการ",
-    detailLink: "https://drive.google.com/file/d/17Cr1Pr2UA5CFrj59IzT3AmSAj3aKSIFm/view",
+    detailLink: "https://office.kmitl.ac.th/oaq/curriculum/",
     reverse: true
   }
 ];
@@ -154,7 +162,7 @@ export default function Admission() {
                 <div className="col">
                    <span className="label-gray">ชื่อหลักสูตร</span>
                    <p className="val-text">{course.thaiSub}</p>
-                   <p className="val-sub">{course.title}</p>
+                   <p className="val-sub">{course.engSub}</p>
                 </div>
               </div>
               <div className="info-row">
