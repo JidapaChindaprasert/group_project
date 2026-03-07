@@ -13,6 +13,7 @@ import FloatingCalendar from './components/calendar';
 import Footer from './components/footer';
 import ScrollToTop from './components/ScrollToTop';
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +24,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/academic" element={<Academic />} />
+
           <Route path="/admission" element={<Admission />} />
+          <Route path="/course/iot" element={<IoT />} />
+          <Route path="/course/physiot" element={<PhysIoT />} />
+
           <Route path="/faculty" element={<Faculty />} />
           <Route path="/faculty/FacultyPhys" element={<FacultyPhysics />} />
           <Route path="/faculty/:id" element={<ProfessorDetail />} />
