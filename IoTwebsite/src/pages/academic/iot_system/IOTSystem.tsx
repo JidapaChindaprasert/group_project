@@ -1,8 +1,8 @@
 import './IOTSystem.css';
 import universityIcon from '../../../assets/university_icon.svg';
-import CourseStructure from './course_structure/CourseStructure';
+import CourseStructureIoT from './course_structure/CourseStructure';
 
-const careers = [
+const careersiot = [
     'วิศวกรระบบไอโอที (IoT Engineer)',
     'วิศวกรระบบสารสนเทศ (Information System Engineer)',
     'วิศวกรระบบสมองกลฝังตัว (Embedded System Engineer)',
@@ -69,7 +69,7 @@ export default function IOTSystem() {
 
                 <div className="iot-system-career-list-box">
                     <ul className="iot-system-career-list">
-                        {careers.map((career, index) => (
+                        {careersiot.map((career, index) => (
                             <li key={index}>{career}</li>
                         ))}
                     </ul>
@@ -77,7 +77,7 @@ export default function IOTSystem() {
             </div>
 
             {/* Curriculum Structure */}
-            <CourseStructure />
+            <CourseStructureIoT />
         </div>
     );
 }
