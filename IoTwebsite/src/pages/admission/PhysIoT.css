@@ -1,0 +1,107 @@
+.iot-page-container { font-family: 'Kanit', sans-serif; }
+
+.iot-header-white {
+  background: #F5F5F1;
+  padding: 40px 8%;
+  color: #2f57c3;
+}
+
+.course-main-title { font-size: 2.5rem; font-weight: 800; margin: 0; }
+.course-type-label { font-size: 1.2rem; opacity: 0.6; margin-top: 5px; }
+
+.iot-dark-body {
+  background: #1e3a8a;
+  padding: 50px 8%;
+  min-height: 100vh;
+}
+
+.iot-tabs-navigation {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 40px;
+  align-items: stretch;
+}
+
+.iot-tab-box {
+  flex: 1;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  background: #2f57c3;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+ min-height: 100px; 
+}
+
+.iot-tab-box.active {
+  background: #F5F5F1;
+  color: #1D3557;
+  font-weight: bold;
+}
+
+.iot-tab-box.active .tab-primary {
+  border-bottom: 2px solid #1d3557;
+  padding-bottom: 2px;
+  display: inline-block;
+}
+
+.tab-primary { 
+  font-size: 1.4rem; 
+  font-weight: 800; 
+  letter-spacing: 1px;
+}
+
+.tab-secondary { 
+  font-size: 0.9rem; 
+  margin-top: 8px; 
+  font-weight: 500;
+}
+
+.iot-accordion-list-bg {
+  background: #F5F5F1;
+  border-radius: 25px;
+  padding: 30px;
+}
+
+.accordion-head-click {
+  background: #374157;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.accordion-head-click.is-expanded {
+  border-radius: 12px 12px 12px 12px;
+  margin-bottom: 0;
+}
+
+.accordion-body-info {
+  background: #E9E9E4;
+  padding: 30px 40px;
+  border-radius: 0 0 12px 12px;
+  margin-bottom: 15px;
+  color: #1D3557;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.info-topic { font-weight: bold; margin: 20px 0 8px 0; font-size: 1.1rem; }
+.info-bullet-list { padding-left: 20px; margin: 0; }
+.info-plain-text { margin: 0; line-height: 1.6; }
+.info-link-text {
+  color: #1D3557;
+  text-decoration: underline;
+  display: block;          
+  word-break: break-all;    
+  overflow-wrap: anywhere;   
+  margin-top: 8px;
+}
