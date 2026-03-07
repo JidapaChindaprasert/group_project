@@ -12,6 +12,15 @@ export interface Course {
     mobileRow?: number; // 1 to n
     mobileColSpan?: number;
     mobileRowSpan?: number;
+    planGroup?: number | null;  // which plan box (1, 2, ...) — null = regular course
+    planLabel?: string | null;  // label shown at bottom of plan box, e.g. "PLAN 1\nproject"
+}
+
+export interface CurriculumMetadata {
+    program: string;
+    curriculumYear: string;
+    pdfUrl: string;
+    pdfLabel: string;
 }
 
 export type CurriculumData = {

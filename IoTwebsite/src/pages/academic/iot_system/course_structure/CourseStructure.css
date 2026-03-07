@@ -37,6 +37,7 @@
 .pdf-mockup {
     width: 100%;
     flex-grow: 1;
+    min-height: 600px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 20px;

@@ -288,3 +288,9 @@
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
 }
+/* Hide on small screens (1024px and below) */
+@media (max-width: 480px){
+    .calendar-wrapper {
+        display: none !important;
+    }
+}

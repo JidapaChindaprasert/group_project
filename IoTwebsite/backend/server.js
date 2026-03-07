@@ -180,7 +180,7 @@ const createProfessor = (req, res) => {
 };
 
 app.post("/professors", createProfessor);
-app.get("/api/professors", createProfessor);
+app.post("/api/professors", createProfessor);
 
 // 🗑️ DELETE: Delete professor
 const deleteProfessor = (req, res) => {
@@ -231,6 +231,103 @@ app.delete("/api/important-dates/:id", (req, res) => {
     });
 });
 
+// 📚 GET: Curriculum Metadata (PDF, etc.)
+app.get("/api/curriculum/:program/:year/metadata", (req, res) => {
+    const { program, year } = req.params;
+    const sql = "SELECT * FROM curriculum_metadata WHERE program = ? AND curriculum_year = ?";
+    db.query(sql, [program, year], (err, results) => {
+        if (err) {
+            console.error("❌ Metadata Query Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        if (results[0]) {
+            res.json({
+                program: results[0].program,
+                curriculumYear: results[0].curriculum_year,
+                pdfUrl: results[0].pdf_url,
+                pdfLabel: results[0].pdf_label
+            });
+        } else {
+            res.json({ program, curriculumYear: year, pdfUrl: "", pdfLabel: "" });
+        }
+    });
+});
+
+// 📚 PUT: Update Curriculum Metadata
+app.put("/api/curriculum/metadata", (req, res) => {
+    const { program, curriculumYear, pdfUrl, pdfLabel } = req.body;
+    const sql = `
+        INSERT INTO curriculum_metadata (program, curriculum_year, pdf_url, pdf_label)
+        VALUES (?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE pdf_url = VALUES(pdf_url), pdf_label = VALUES(pdf_label)
+    `;
+    db.query(sql, [program, curriculumYear, pdfUrl, pdfLabel], (err, result) => {
+        if (err) {
+            console.error("❌ Metadata Update Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: "Metadata updated successfully" });
+    });
+});
+
+// 📚 PUT: Update Course
+app.put("/api/curriculum/:program/:year/courses/:id", (req, res) => {
+    const { program, year, id } = req.params;
+    const {
+        name, description, col, row, row_span, class_name,
+        mobile_col, mobile_row, plan_group, plan_label
+    } = req.body;
+
+    const tableMap = {
+        'iot': 'curriculum_iot',
+        'physiot': 'curriculum_physiot',
+        'continue': 'curriculum_continue'
+    };
+    const tableName = tableMap[program];
+    if (!tableName) return res.status(400).json({ error: "Invalid program" });
+
+    const sql = `
+        UPDATE ${tableName} 
+        SET name = ?, description = ?, \`col\` = ?, \`row\` = ?, row_span = ?, 
+            class_name = ?, mobile_col = ?, mobile_row = ?, plan_group = ?, plan_label = ?
+        WHERE id = ? AND curriculum_year = ?
+    `;
+
+    db.query(sql, [
+        name, description, col, row, row_span, class_name,
+        mobile_col, mobile_row, plan_group, plan_label, id, year
+    ], (err, result) => {
+        if (err) {
+            console.error("❌ Course Update Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: "Course updated successfully" });
+    });
+});
+// 📚 GET: Available Years for a Program
+app.get("/api/curriculum/:program/years", (req, res) => {
+    const { program } = req.params;
+    const tableMap = {
+        'iot': 'curriculum_iot',
+        'physiot': 'curriculum_physiot',
+        'continue': 'curriculum_continue'
+    };
+    const tableName = tableMap[program];
+    if (!tableName) {
+        return res.status(400).json({ error: "Invalid program name" });
+    }
+    const sql = `SELECT DISTINCT curriculum_year FROM ${tableName} ORDER BY curriculum_year DESC`;
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error("❌ Years Query Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        const years = results.map(r => r.curriculum_year);
+        console.log(`📅 Available years for ${program}:`, years);
+        res.json(years);
+    });
+});
+
 // 📚 GET: Curriculum Data
 app.get("/api/curriculum/:program/:year", (req, res) => {
     const { program, year } = req.params;
@@ -270,10 +367,67 @@ app.get("/api/curriculum/:program/:year", (req, res) => {
             mobileCol: row.mobile_col,
             mobileRow: row.mobile_row,
             mobileColSpan: row.mobile_col_span,
-            mobileRowSpan: row.mobile_row_span
+            mobileRowSpan: row.mobile_row_span,
+            planGroup: row.plan_group ?? null,
+            planLabel: row.plan_label ?? null,
         }));
 
         res.json(data);
+    });
+});
+
+// 📚 POST: Add New Course
+app.post("/api/curriculum/:program/:year/courses", (req, res) => {
+    const { program, year } = req.params;
+    const {
+        id, name, description, col, row, row_span, class_name,
+        mobile_col, mobile_row, plan_group, plan_label
+    } = req.body;
+
+    const tableMap = {
+        'iot': 'curriculum_iot',
+        'physiot': 'curriculum_physiot',
+        'continue': 'curriculum_continue'
+    };
+    const tableName = tableMap[program];
+    if (!tableName) return res.status(400).json({ error: "Invalid program" });
+
+    const sql = `
+        INSERT INTO ${tableName} 
+        (id, curriculum_year, name, description, \`col\`, \`row\`, row_span, class_name, mobile_col, mobile_row, plan_group, plan_label)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(sql, [
+        id, year, name, description, col || 1, row || 1, row_span || 1, class_name || null,
+        mobile_col || col || 1, mobile_row || row || 1, plan_group || null, plan_label || null
+    ], (err, result) => {
+        if (err) {
+            console.error("❌ Course Insertion Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(201).json({ message: "Course added successfully" });
+    });
+});
+
+// 📚 DELETE: Remove Course
+app.delete("/api/curriculum/:program/:year/courses/:id", (req, res) => {
+    const { program, year, id } = req.params;
+    const tableMap = {
+        'iot': 'curriculum_iot',
+        'physiot': 'curriculum_physiot',
+        'continue': 'curriculum_continue'
+    };
+    const tableName = tableMap[program];
+    if (!tableName) return res.status(400).json({ error: "Invalid program" });
+
+    const sql = `DELETE FROM ${tableName} WHERE id = ? AND curriculum_year = ?`;
+    db.query(sql, [id, year], (err, result) => {
+        if (err) {
+            console.error("❌ Course Delete Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: "Course deleted successfully" });
     });
 });
 

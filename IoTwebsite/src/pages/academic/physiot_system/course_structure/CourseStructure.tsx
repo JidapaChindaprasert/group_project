@@ -2,46 +2,84 @@ import { useState, useEffect } from 'react';
 import './CourseStructure.css';
 import './CourseTable_PHYIOT.css';
 import CourseTable from '../../CourseTable/CourseTable';
-import { type Course } from '../../curriculumData';
+import { type Course, type CurriculumMetadata } from '../../curriculumData';
+
+const API_BASE = 'http://localhost:3001';
 
 export default function CourseStructurePhyIoT() {
-    const [selectedYear, setSelectedYear] = useState<string>('2565');
+    const [selectedYear, setSelectedYear] = useState<string>('');
     const [courses, setCourses] = useState<Course[]>([]);
-    const availableYears = ['2568', '2565'];
+    const [availableYears, setAvailableYears] = useState<string[]>([]);
+    const [metadata, setMetadata] = useState<CurriculumMetadata | null>(null);
 
+    // Fetch available years from DB on mount
     useEffect(() => {
-        fetch(`/api/curriculum/physiot/${selectedYear}`)
+        fetch(`${API_BASE}/api/curriculum/physiot/years`)
             .then(res => res.json())
-            .then(data => {
+            .then((years: string[]) => {
+                if (Array.isArray(years) && years.length > 0) {
+                    setAvailableYears(years);
+                    setSelectedYear(years[0]);
+                }
+            })
+            .catch(err => console.error('Error fetching PhysIoT years:', err));
+    }, []);
+
+    // Fetch courses and metadata whenever selected year changes
+    useEffect(() => {
+        if (!selectedYear) return;
+
+        // Fetch courses
+        fetch(`${API_BASE}/api/curriculum/physiot/${selectedYear}`)
+            .then(res => res.json())
+            .then((data: Course[]) => {
                 if (Array.isArray(data)) {
                     setCourses(data);
                 }
             })
-            .catch(err => console.error("Error fetching curriculum:", err));
+            .catch(err => console.error('Error fetching PhysIoT courses:', err));
+
+        // Fetch metadata
+        fetch(`${API_BASE}/api/curriculum/physiot/${selectedYear}/metadata`)
+            .then(res => res.json())
+            .then((meta: CurriculumMetadata) => {
+                setMetadata(meta);
+            })
+            .catch(err => console.error('Error fetching PhysIoT metadata:', err));
     }, [selectedYear]);
+
+    // Helper to get preview URL from view URL
+    const getPreviewUrl = (url: string) => {
+        if (!url) return '';
+        if (url.includes('drive.google.com') && url.includes('/view')) {
+            return url.replace('/view', '/preview');
+        }
+        return url;
+    };
 
     return (
         <div className="course-structure-section phy-iot-theme">
-            {/* Top Header */}
             <h2 className="course-structure-title">
                 โครงสร้างหลักสูตรสาขาวิชาฟิสิกส์อุตสาหกรรม วิศวกรรมระบบไอโอที (หลักสูตรสองปริญญา) {selectedYear}
             </h2>
 
             <div className="course-structure-layout">
-                {/* Left Side: Course Table (Standardized Position) */}
                 <div className="course-structure-left">
-                    {/* Year Selection Controls */}
                     <div className="curriculum-year-selector" style={{ display: 'flex', gap: '10px', marginBottom: '20px', justifyContent: 'center' }}>
-                        {availableYears.map(year => (
-                            <button
-                                key={year}
-                                className={`phy-year-btn ${selectedYear === year ? 'active' : ''}`}
-                                onClick={() => setSelectedYear(year)}
-                                style={{ padding: '8px 16px', minWidth: '80px', borderRadius: '10px', cursor: 'pointer', border: 'none', fontWeight: 'bold' }}
-                            >
-                                {year}
-                            </button>
-                        ))}
+                        {availableYears.length === 0 ? (
+                            <span style={{ color: '#888' }}>กำลังโหลด...</span>
+                        ) : (
+                            availableYears.map(year => (
+                                <button
+                                    key={year}
+                                    className={`phy-year-btn ${selectedYear === year ? 'active' : ''}`}
+                                    onClick={() => setSelectedYear(year)}
+                                    style={{ padding: '8px 16px', minWidth: '80px', borderRadius: '10px', cursor: 'pointer', border: 'none', fontWeight: 'bold' }}
+                                >
+                                    {year}
+                                </button>
+                            ))
+                        )}
                     </div>
 
                     <CourseTable courses={courses} theme="phy-iot-theme" years={4} />
@@ -50,27 +88,34 @@ export default function CourseStructurePhyIoT() {
                     </button>
                 </div>
 
-                {/* Right Side: PDF Mockup (Standardized Position) */}
                 <div className="course-structure-right">
-                    <div className="phy-pdf-mockup" style={{ height: '600px' }}>
-                        <iframe
-                            src="https://drive.google.com/file/d/1cHSWjO3A03lcGqgbT9PR51d335LfaVVo/preview"
-                            width="100%"
-                            height="100%"
-                            title="Curriculum PDF Preview"
-                            style={{ border: 'none' }}
-                        />
+                    <div className="phy-pdf-mockup">
+                        {metadata?.pdfUrl ? (
+                            <iframe
+                                src={getPreviewUrl(metadata.pdfUrl)}
+                                width="100%"
+                                height="100%"
+                                title="Curriculum PDF Preview"
+                                style={{ border: 'none' }}
+                            />
+                        ) : (
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#888' }}>
+                                ไม่พบไฟล์ PDF ของหลักสูตรปีนี้
+                            </div>
+                        )}
                     </div>
-                    <a
-                        href="https://drive.google.com/file/d/1cHSWjO3A03lcGqgbT9PR51d335LfaVVo/view"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ textDecoration: 'none', display: 'block', width: '100%' }}
-                    >
-                        <button className="phy-course-action-btn">
-                            เล่มหลักสูตรฟิสิกส์อุตสาหกรรม วิศวกรรมระบบไอโอที {selectedYear}
-                        </button>
-                    </a>
+                    {metadata?.pdfUrl && (
+                        <a
+                            href={metadata.pdfUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ textDecoration: 'none', display: 'block', width: '100%' }}
+                        >
+                            <button className="phy-course-action-btn">
+                                {metadata.pdfLabel || `เล่มหลักสูตรฟิสิกส์อุตสาหกรรม วิศวกรรมระบบไอโอที ${selectedYear}`}
+                            </button>
+                        </a>
+                    )}
                 </div>
             </div>
         </div>
