@@ -18,7 +18,7 @@ export default function ProfessorDetail() {
     const fetchProfessor = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:3001/professors/${id}`);
+        const response = await fetch(`/professors/${id}`);
         if (!response.ok) {
           throw new Error("Professor not found");
         }

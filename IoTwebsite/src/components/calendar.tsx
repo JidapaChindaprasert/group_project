@@ -35,7 +35,7 @@ const FloatingCalendar: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/important-dates")
+    fetch("/api/important-dates")
       .then(res => res.json())
       .then(data => {
         const datesMap: Record<string, string> = {};

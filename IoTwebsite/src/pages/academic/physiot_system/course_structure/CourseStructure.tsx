@@ -4,7 +4,7 @@ import './CourseTable_PHYIOT.css';
 import CourseTable from '../../CourseTable/CourseTable';
 import { type Course, type CurriculumMetadata } from '../../curriculumData';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = '';
 
 export default function CourseStructurePhyIoT() {
     const [selectedYear, setSelectedYear] = useState<string>('');

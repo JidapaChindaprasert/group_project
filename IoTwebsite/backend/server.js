@@ -22,7 +22,7 @@ const upload = multer({ storage: storage });
 
 app.post("/api/upload", upload.single("image"), (req, res) => {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
-    const imageUrl = `http://localhost:3001/uploads/${req.file.filename}`;
+    const imageUrl = `/uploads/${req.file.filename}`;
     res.json({ imageUrl });
 });
 
@@ -564,7 +564,7 @@ app.get("*", (req, res) => {
 
 // 🚀 Start Server
 // (คุณสามารถเปลี่ยนเลข 3001 เป็น 7300 ได้เลยถ้าต้องการล็อคพอร์ตไว้ในโค้ด)
-const PORT = process.env.PORT || 7300; 
+const PORT = process.env.PORT || 7300;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });

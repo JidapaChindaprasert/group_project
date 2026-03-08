@@ -4,16 +4,26 @@ import react from '@vitejs/plugin-react-swc'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    outDir: 'backend/dist',
+  },
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:7300',
         changeOrigin: true,
-        configure: (proxy) => {
-          proxy.on('error', (err) => {
-            console.log('Proxy error:', err.message);
-          });
-        },
+      },
+      '/professors': {
+        target: 'http://localhost:7300',
+        changeOrigin: true,
+      },
+      '/staff': {
+        target: 'http://localhost:7300',
+        changeOrigin: true,
+      },
+      '/uploads': {
+        target: 'http://localhost:7300',
+        changeOrigin: true,
       }
     }
   }

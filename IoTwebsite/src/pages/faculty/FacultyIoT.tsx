@@ -26,8 +26,8 @@ export default function FacultyIoT() {
       try {
         setLoading(true);
         const [profRes, staffRes] = await Promise.all([
-          fetch("http://localhost:3001/professors"),
-          fetch("http://localhost:3001/api/staff")
+          fetch("/professors"),
+          fetch("/api/staff")
         ]);
 
         if (!profRes.ok || !staffRes.ok) throw new Error("Failed to fetch data");
@@ -70,7 +70,7 @@ export default function FacultyIoT() {
     setLoading(true);
     try {
       // ✅ Fetch all professors for refresh
-      const response = await fetch("http://localhost:3001/professors");
+      const response = await fetch("/professors");
 
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 

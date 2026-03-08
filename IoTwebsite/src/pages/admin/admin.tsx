@@ -43,19 +43,19 @@ export default function Admin() {
 
     // --- FETCHERS ---
     const fetchProfessors = () => {
-        let url = "http://localhost:3001/professors";
+        let url = "/professors";
         if (filterDepartment !== "all") url += `?department=${filterDepartment}`;
         fetch(url).then(res => res.json()).then(data => setProfessors(data));
     };
 
     const fetchStaff = () => {
-        let url = "http://localhost:3001/api/staff";
+        let url = "/api/staff";
         if (filterDepartment !== "all") url += `?department=${filterDepartment}`;
         fetch(url).then(res => res.json()).then(data => setStaff(data));
     };
 
     const fetchDates = () => {
-        fetch("http://localhost:3001/api/important-dates")
+        fetch("/api/important-dates")
             .then(res => res.json())
             .then(data => setDates(data));
     };
@@ -72,7 +72,7 @@ export default function Admin() {
     useEffect(() => {
         const fetchYears = async () => {
             try {
-                const res = await fetch(`http://localhost:3001/api/curriculum/${currProgram}/years`);
+                const res = await fetch(`/api/curriculum/${currProgram}/years`);
                 const years = await res.json();
                 setCurrYears(years);
                 if (years.length > 0 && !currSelectedYear) setCurrSelectedYear(years[0]);
@@ -84,7 +84,7 @@ export default function Admin() {
     const fetchCurrCourses = async () => {
         if (!currSelectedYear) return;
         try {
-            const res = await fetch(`http://localhost:3001/api/curriculum/${currProgram}/${currSelectedYear}`);
+            const res = await fetch(`/api/curriculum/${currProgram}/${currSelectedYear}`);
             const data = await res.json();
             setCurrCourses(data);
         } catch (err) { console.error(err); }
@@ -94,7 +94,7 @@ export default function Admin() {
         if (!currSelectedYear) return;
         const fetchMetadata = async () => {
             try {
-                const res = await fetch(`http://localhost:3001/api/curriculum/${currProgram}/${currSelectedYear}/metadata`);
+                const res = await fetch(`/api/curriculum/${currProgram}/${currSelectedYear}/metadata`);
                 const meta = await res.json();
                 setCurrMetadata({ pdfUrl: meta.pdfUrl || "", pdfLabel: meta.pdfLabel || "" });
             } catch (err) { console.error(err); }
@@ -108,7 +108,7 @@ export default function Admin() {
         const formData = new FormData();
         formData.append("image", file);
         try {
-            const res = await fetch("http://localhost:3001/api/upload", {
+            const res = await fetch("/api/upload", {
                 method: "POST",
                 body: formData,
             });
@@ -125,7 +125,7 @@ export default function Admin() {
 
     const handleSaveClick = async (id: string) => {
         try {
-            const res = await fetch(`http://localhost:3001/professors/${id}`, {
+            const res = await fetch(`/professors/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editFormData),
@@ -137,7 +137,7 @@ export default function Admin() {
     const handleDeleteClick = async (id: string) => {
         if (!window.confirm("Delete this professor?")) return;
         try {
-            const res = await fetch(`http://localhost:3001/professors/${id}`, { method: "DELETE" });
+            const res = await fetch(`/professors/${id}`, { method: "DELETE" });
             if (res.ok) fetchProfessors();
         } catch (error) { console.error(error); }
     };
@@ -145,7 +145,7 @@ export default function Admin() {
     const handleNewProfessorSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:3001/professors", {
+            const res = await fetch("/professors", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newProfessorForm),
@@ -165,7 +165,7 @@ export default function Admin() {
 
     const handleStaffSaveClick = async (id: string) => {
         try {
-            const res = await fetch(`http://localhost:3001/api/staff/${id}`, {
+            const res = await fetch(`/api/staff/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editStaffFormData),
@@ -177,7 +177,7 @@ export default function Admin() {
     const handleStaffDeleteClick = async (id: string) => {
         if (!window.confirm("Delete this staff?")) return;
         try {
-            const res = await fetch(`http://localhost:3001/api/staff/${id}`, { method: "DELETE" });
+            const res = await fetch(`/api/staff/${id}`, { method: "DELETE" });
             if (res.ok) fetchStaff();
         } catch (err) { console.error(err); }
     };
@@ -185,7 +185,7 @@ export default function Admin() {
     const handleNewStaffSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:3001/api/staff", {
+            const res = await fetch("/api/staff", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newStaffForm),
@@ -205,7 +205,7 @@ export default function Admin() {
         setIsSavingCurr(true);
         const yearToSave = newYear || currSelectedYear;
         try {
-            const res = await fetch(`http://localhost:3001/api/curriculum/metadata`, {
+            const res = await fetch(`/api/curriculum/metadata`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -223,7 +223,7 @@ export default function Admin() {
     const handleCourseEditClick = (c: any) => { setEditingCourseId(c.id); setEditCourseForm({ ...c }); };
     const handleCourseSaveClick = async (id: string) => {
         try {
-            const res = await fetch(`http://localhost:3001/api/curriculum/${currProgram}/${currSelectedYear}/courses/${id}`, {
+            const res = await fetch(`/api/curriculum/${currProgram}/${currSelectedYear}/courses/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editCourseForm)
@@ -235,7 +235,7 @@ export default function Admin() {
     const handleNewCourseSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:3001/api/curriculum/${currProgram}/${currSelectedYear}/courses`, {
+            const res = await fetch(`/api/curriculum/${currProgram}/${currSelectedYear}/courses`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newCourseForm)
@@ -253,7 +253,7 @@ export default function Admin() {
     const handleCourseDeleteClick = async (id: string) => {
         if (!window.confirm("Delete course?")) return;
         try {
-            const res = await fetch(`http://localhost:3001/api/curriculum/${currProgram}/${currSelectedYear}/courses/${id}`, { method: "DELETE" });
+            const res = await fetch(`/api/curriculum/${currProgram}/${currSelectedYear}/courses/${id}`, { method: "DELETE" });
             if (res.ok) fetchCurrCourses();
         } catch (err) { console.error(err); }
     };
@@ -261,12 +261,12 @@ export default function Admin() {
     // --- DATE HANDLERS ---
     const handleDateDeleteClick = async (id: number) => {
         if (!window.confirm("Delete date?")) return;
-        try { await fetch(`http://localhost:3001/api/important-dates/${id}`, { method: "DELETE" }); fetchDates(); } catch (err) { console.error(err); }
+        try { await fetch(`/api/important-dates/${id}`, { method: "DELETE" }); fetchDates(); } catch (err) { console.error(err); }
     };
     const handleNewDateSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:3001/api/important-dates", {
+            const res = await fetch("/api/important-dates", {
                 method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newDateForm)
             });
             if (res.ok) { setNewDateForm({ date: '', event_text: '' }); fetchDates(); }

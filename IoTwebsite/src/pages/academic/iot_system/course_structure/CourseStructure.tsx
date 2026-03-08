@@ -3,7 +3,7 @@ import './CourseStructure.css';
 import CourseTable from '../../CourseTable/CourseTable';
 import { type Course, type CurriculumMetadata } from '../../curriculumData';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = '';
 
 export default function CourseStructureIoT() {
     const [selectedYear, setSelectedYear] = useState<string>('');
