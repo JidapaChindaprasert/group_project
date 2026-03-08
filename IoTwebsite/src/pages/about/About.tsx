@@ -23,7 +23,7 @@ const About: React.FC = () => {
             {/* การ์ดใบที่ 1 */}
             <div className="course-card">
               <header className="card-header">
-                <img src="\public\About__picture\iot-bg.png" alt="IoT Hardware Background" className="header-bg-img" />
+                <img src="/About__picture/iot-bg.png" alt="IoT Hardware Background" className="header-bg-img" />
                 <div className="header-overlay"></div>
                 <div className="header-content">
                   <div className="icon-container">
@@ -54,7 +54,7 @@ const About: React.FC = () => {
             {/* การ์ดใบที่ 2 */}
             <div className="course-card">
               <header className="card-header">
-                <img src="\public\About__picture\phys-bg.png" alt="IoT Hardware Background" className="header-bg-img" />
+                <img src="/About__picture/phys-bg.png" alt="IoT Hardware Background" className="header-bg-img" />
                 <div className="header-overlay"></div>
                 <div className="header-content">
                   <div className="icon-container">
@@ -86,7 +86,7 @@ const About: React.FC = () => {
             {/* การ์ดใบที่ 3 */}
             <div className="course-card">
               <header className="card-header">
-                <img src="\public\About__picture\physiot-bg.png" alt="IoT Hardware Background" className="header-bg-img" />
+                <img src="/About__picture/physiot-bg.png" alt="IoT Hardware Background" className="header-bg-img" />
                 <div className="header-overlay"></div>
                 <div className="header-content">
                   <div className="icon-container">
