@@ -29,9 +29,9 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
 // 🔗 MySQL Connection
 const db = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "Pern06006^_^",
-    database: "iotwebsite"
+    user: "st67050066_iot_website",
+    password: "TvQa6dZKVCEAtd8s75F9",
+    database: "st67050066_iot_website"
 });
 
 db.connect(err => {
