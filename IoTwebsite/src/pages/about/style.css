@@ -8,19 +8,23 @@
    ========================================= */
 .about-container {
   font-family: 'Prompt', sans-serif;
-  /* 🔴 ตั้งค่าเนื้อหาทั้งหมดเป็น Prompt */
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #F3F4F6;
-  padding: 120px 20px 60px 20px;
-  /* Increased top padding for fixed navbar */
+  padding: 0;
 }
 
 .intro-section {
   text-align: center;
+  width: 100%;
   max-width: 900px;
-  margin-bottom: 50px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 20px 60px 20px;
 }
 
 .intro-title {
@@ -49,6 +53,9 @@
   gap: 30px;
   width: 100%;
   max-width: 1200px;
+  min-height: 100vh;
+  align-content: center;
+  padding: 60px 20px;
 }
 
 .course-card {
@@ -216,11 +223,15 @@
    3. ภาคเราเกี่ยวกับอะไร
    ========================================= */
 .what-we-learn-section {
-  padding: 80px 20px;
+  width: 100%;
+  min-height: 100vh;
+  padding: 60px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: #F0EEE9;
+  box-sizing: border-box;
 }
 
 .section-header-center {
@@ -344,10 +355,14 @@
    ========================================= */
 .history-section {
   background-color: #1E3A8A;
-  padding: 80px 20px;
+  min-height: 100vh;
+  padding: 60px 20px;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: #fff;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .history-content-wrapper {
@@ -390,7 +405,7 @@
    ========================================= */
 @media (max-width: 768px) {
   .about-container {
-    padding: 40px 15px;
+    padding: 100px 15px 40px 15px;
   }
 
   .intro-title {

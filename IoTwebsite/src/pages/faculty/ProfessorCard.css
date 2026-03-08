@@ -7,7 +7,7 @@
   /* Control size */
   width: 100%;
   max-width: 220px;
-  
+
   height: 400px;
 
   display: flex;
@@ -31,16 +31,19 @@
   margin: 8px 0;
   color: rgb(215, 215, 215);
 }
+
 .prof-card h3 {
   margin-top: 8px;
   font-size: 16px;
   color: rgb(234, 232, 232);
 }
+
 .prof-card p {
   font-size: 14px;
   margin-bottom: 3px;
 }
-.prof-card > *:not(img) {
+
+.prof-card>*:not(img) {
   flex-shrink: 0;
 }
 
@@ -48,6 +51,7 @@
   display: flex;
   justify-content: right;
 }
+
 /* Button */
 .detail-btn {
   font-size: 11px;
@@ -61,6 +65,7 @@
   background: #1E3A8A;
   width: 70%;
 }
+
 .detail-btn:hover {
   background: white;
   color: #2c3440;
@@ -88,40 +93,48 @@
 }
 
 /*//////////////////////////////////// Mobile ////////////////////////////////////*/
-@media (max-width: 414px) {
+@media (max-width: 768px) {
   .prof-card {
-    padding: 5px;
-
-    /* Control size */
+    padding: 8px;
     width: 100%;
-    max-width: 220px;
-    
-    height: 300px;
-
+    max-width: none;
+    /* Let the grid control the width */
+    height: auto;
+    /* Allow height to adjust to content */
+    min-height: 280px;
     display: flex;
     flex-direction: column;
   }
 
   .prof-card img {
-    height: 160px;     
+    height: auto;
+    aspect-ratio: 1 / 1.1;
+    /* Force a consistent shape */
     width: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
   }
 
   .prof-info h3 {
-    font-size: 13px;
+    font-size: 14px;
+    margin: 8px 0 2px 0;
   }
 
   .prof-info p {
-    font-size: 12px;
+    font-size: 11px;
+    margin-bottom: 8px;
   }
 
-  .prof-info button {
-    font-size: 12px;
-    padding: 6px 10px;
-  } 
+  .detail-btn {
+    font-size: 10px;
+    padding: 4px 8px;
+    width: 100%;
+  }
 }
+
 /*//////////////////////////////////// Tablet ////////////////////////////////////*/
-@media (min-width: 415px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .prof-card {
     padding: 8px;
     border-radius: 20px;
@@ -129,7 +142,7 @@
     /* Control size */
     width: 100%;
     max-width: 220px;
-    
+
     height: 360px;
 
     display: flex;

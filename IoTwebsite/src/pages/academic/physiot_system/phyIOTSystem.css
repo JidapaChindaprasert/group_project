@@ -1,14 +1,24 @@
 /* PHY IOT System Details Page Styles */
 .phy-iot-system-page {
-    padding: 56px;
+    padding: 100px 56px 56px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Hero Section: groups Title + Intro text together */
+.phy-iot-system-hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 0;
     box-sizing: border-box;
 }
 
 /* Header Section */
 .phy-iot-system-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .phy-iot-system-title-en {
@@ -28,7 +38,7 @@
 /* Intro Section */
 .phy-iot-system-intro-section {
     text-align: center;
-    margin-bottom: 60px;
+    padding: 20px 0;
 }
 
 .phy-iot-system-intro-title {
@@ -45,13 +55,21 @@
     line-height: 1.5;
 }
 
-/* Card Container */
+/* Card Container - its own full-height section */
+.phy-iot-system-section-cards {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 0;
+    box-sizing: border-box;
+}
+
 .phy-iot-system-card-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     width: 100%;
-    margin: 0 0 80px;
 }
 
 /* Info Card (Blue Box) */

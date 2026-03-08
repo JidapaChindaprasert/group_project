@@ -39,13 +39,13 @@ html {
 /* Uniform padding per breakpoint */
 @media (max-width: 1024px) {
     .academic-hero {
-        padding: 56px;
+        padding: 100px 56px 56px 56px;
     }
 }
 
 @media (max-width: 640px) {
     .academic-hero {
-        padding: 32px;
+        padding: 100px 24px 32px 24px;
     }
 }
 

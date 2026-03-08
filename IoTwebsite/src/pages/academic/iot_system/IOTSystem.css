@@ -1,8 +1,17 @@
 /* IOT System Details Page Styles */
 .iot-system-page {
-    /* Using global background #f0ede8 implicitly from index.css */
-    padding: 56px;
+    padding: 100px 56px 56px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Hero Section: Title + Info Card grouped together */
+.iot-system-hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 0;
     box-sizing: border-box;
 }
 
@@ -75,8 +84,13 @@
 /* Career Section */
 .iot-system-career-section {
     width: 100%;
-    /* Full-width section, inner boxes handle padding */
-    margin: 60px 0 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 60px 0;
+    box-sizing: border-box;
 }
 
 .iot-system-career-header-row {

@@ -166,7 +166,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 100px 20px 40px 20px;
     height: auto;
   }
 
@@ -231,17 +231,18 @@
 .btn.matcher-trigger {
   background: linear-gradient(135deg, #1E3A8A 0%, #3b82f6 100%);
   color: white;
-  border: 2px solid white;
+  border: 1.5px solid white;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 0.9rem 1.5rem;
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
-  animation: pulse 2s infinite;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.2rem;
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
+  animation: pulse 4s infinite;
+  /* Slower, more subtle pulse */
 }
 
 .btn.matcher-trigger:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(30, 58, 138, 0.3);
   animation: none;
 }
 
@@ -249,11 +250,14 @@
 
   0%,
   100% {
-    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
+    transform: scale(1);
   }
 
   50% {
-    box-shadow: 0 6px 16px rgba(30, 58, 138, 0.5);
+    box-shadow: 0 5px 12px rgba(30, 58, 138, 0.3);
+    transform: scale(1.02);
+    /* Tiny scale instead of large shadow */
   }
 }
 

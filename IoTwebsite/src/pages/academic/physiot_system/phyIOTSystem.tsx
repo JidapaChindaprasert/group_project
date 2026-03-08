@@ -25,42 +25,44 @@ const careersphysiot = [
 export default function PHYIOTSystem() {
     return (
         <div className="phy-iot-system-page">
-            <div className="phy-iot-system-header">
-                <h1 className="phy-iot-system-title-en">INDUSTRIAL PHYSICS AND IOT SYSTEM INFORMATION</h1>
-                <p className="phy-iot-system-subtitle-en">Bachelor of Science and Engineering</p>
-            </div>
+            <section className="phy-iot-system-hero-section">
+                <div className="phy-iot-system-header">
+                    <h1 className="phy-iot-system-title-en">INDUSTRIAL PHYSICS AND IOT SYSTEM INFORMATION</h1>
+                    <p className="phy-iot-system-subtitle-en">Bachelor of Science and Engineering</p>
+                </div>
 
-            <div className="phy-iot-system-intro-section">
-                <h2 className="phy-iot-system-intro-title">สองปริญญาคืออะไร ?</h2>
-                <p className="phy-iot-system-intro-text">
-                    คือบูรณาการองค์ความรู้ด้านวิศวกรรมศาสตร์<br />และวิทยาศาสตร์
-                </p>
-            </div>
+                <div className="phy-iot-system-intro-section">
+                    <h2 className="phy-iot-system-intro-title">สองปริญญาคืออะไร ?</h2>
+                    <p className="phy-iot-system-intro-text">
+                        คือบูรณาการองค์ความรู้ด้านวิศวกรรมศาสตร์<br />และวิทยาศาสตร์
+                    </p>
+                </div>
 
-            <div className="phy-iot-system-card-container">
-                <div className="phy-iot-system-info-card">
-                    <h2 className="phy-iot-system-card-title">ฟิสิกส์อุตสาหกรรม</h2>
-                    <p className="phy-iot-system-card-text">
-                        มีความเข้าใจลึกซึ้งแห่งศาสตร์ฟิสิกส์พื้นฐานและฟิสิกส์ประยุกต์
-                        เพื่อบูรณาการความรู้เข้ากับเทคโนโลยีสมัยใหม่ Digital Disruption
-                        ประยุกต์สร้างนวัตกรรมและร่วมงานกับภาคอุตสาหกรรม องค์กรชั้นนำ
-                    </p>
+                <div className="phy-iot-system-card-container">
+                    <div className="phy-iot-system-info-card">
+                        <h2 className="phy-iot-system-card-title">ฟิสิกส์อุตสาหกรรม</h2>
+                        <p className="phy-iot-system-card-text">
+                            มีความเข้าใจลึกซึ้งแห่งศาสตร์ฟิสิกส์พื้นฐานและฟิสิกส์ประยุกต์
+                            เพื่อบูรณาการความรู้เข้ากับเทคโนโลยีสมัยใหม่ Digital Disruption
+                            ประยุกต์สร้างนวัตกรรมและร่วมงานกับภาคอุตสาหกรรม องค์กรชั้นนำ
+                        </p>
+                    </div>
+                    <div className="phy-iot-system-info-card">
+                        <h2 className="phy-iot-system-card-title">วิศวกรรมศาสตร์</h2>
+                        <p className="phy-iot-system-card-text">
+                            การประยุกต์ใช้ความรู้ทางวิศวกรรมและคณิตศาสตร์เพื่อการวิเคราะห์
+                            คำนวณ และออกแบบสร้างนวัตกรรมเพื่อสร้างสรรค์โลกในยุคแห่งการเปลี่ยนแปลง
+                        </p>
+                    </div>
+                    <div className="phy-iot-system-info-card">
+                        <h2 className="phy-iot-system-card-title">ระบบไอโอทีและสารสนเทศ</h2>
+                        <p className="phy-iot-system-card-text">
+                            บูรณาการเทคโนโลยีระบบไอโอทีเพื่อสร้างระบบอัจฉริยะด้วยเทคโนโลยีดิจิทัล ปัญญาประดิษฐ์
+                            ฐานข้อมูลขนาดใหญ่ รวมถึงการเขียนโปรแกรมและการพัฒนาแอพพลิเคชัน
+                        </p>
+                    </div>
                 </div>
-                <div className="phy-iot-system-info-card">
-                    <h2 className="phy-iot-system-card-title">วิศวกรรมศาสตร์</h2>
-                    <p className="phy-iot-system-card-text">
-                        การประยุกต์ใช้ความรู้ทางวิศวกรรมและคณิตศาสตร์เพื่อการวิเคราะห์
-                        คำนวณ และออกแบบสร้างนวัตกรรมเพื่อสร้างสรรค์โลกในยุคแห่งการเปลี่ยนแปลง
-                    </p>
-                </div>
-                <div className="phy-iot-system-info-card">
-                    <h2 className="phy-iot-system-card-title">ระบบไอโอทีและสารสนเทศ</h2>
-                    <p className="phy-iot-system-card-text">
-                        บูรณาการเทคโนโลยีระบบไอโอทีเพื่อสร้างระบบอัจฉริยะด้วยเทคโนโลยีดิจิทัล ปัญญาประดิษฐ์
-                        ฐานข้อมูลขนาดใหญ่ รวมถึงการเขียนโปรแกรมและการพัฒนาแอพพลิเคชัน
-                    </p>
-                </div>
-            </div>
+            </section>
 
             <div className="phy-iot-system-career-section">
                 <div className="phy-iot-system-career-header-row">

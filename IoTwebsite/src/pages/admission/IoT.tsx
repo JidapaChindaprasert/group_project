@@ -1,10 +1,11 @@
 import { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './course.css';
 
 const IoT = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState<string | null>(
     location.state?.activeTab || null
@@ -123,6 +124,9 @@ const IoT = () => {
   return (
     <div className="iot-page-container">
       <div className="iot-header-white">
+        <button className="btn-back-link" onClick={() => navigate('/admission')}>
+          ← Back to Admission
+        </button>
         <h1 className="course-main-title">B.ENG. IOT SYSTEM AND INFORMATION</h1>
         <p className="course-type-label">Bachelor of Engineering</p>
       </div>
@@ -153,8 +157,8 @@ const IoT = () => {
         {activeTab && (
           <div
             className={`iot-accordion-list-bg ${activeTab === 'PORTFOLIO' ? 'port-active' :
-                activeTab === 'QUOTA' ? 'quota-active' :
-                  activeTab === 'ADMISSION' ? 'admission-active' : ''
+              activeTab === 'QUOTA' ? 'quota-active' :
+                activeTab === 'ADMISSION' ? 'admission-active' : ''
               }`}
             ref={contentRef}
           >

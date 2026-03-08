@@ -6,6 +6,27 @@
   background: #F5F5F1;
   padding: 120px 8% 40px 8%;
   color: #2853ca;
+  position: relative;
+}
+
+.btn-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #1e3a8a;
+  font-weight: 600;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.btn-back-link:hover {
+  color: #2f57c3;
 }
 
 .course-main-title {
@@ -132,3 +153,69 @@
   overflow-wrap: anywhere;
   margin-top: 8px;
 }
+/* Response */
+@media (max-width: 768px) {
+  .iot-header-white {
+    padding: 100px 5% 30px 5%;
+  }
+
+  .course-main-title {
+    font-size: 1.6rem;
+  }
+
+  .course-type-label {
+    font-size: 1.1rem;
+  }
+
+  .iot-dark-body {
+    padding: 30px 5%;
+  }
+
+  .iot-tabs-navigation {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .iot-tab-box {
+    min-height: 70px;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .iot-tab-box.active {
+    border-radius: 12px;
+  }
+
+  .tab-primary {
+    font-size: 1.1rem;
+  }
+
+  .iot-accordion-list-bg {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .accordion-head-click {
+    padding: 15px 20px;
+    font-size: 0.9rem;
+  }
+
+  .accordion-body-info {
+    padding: 20px;
+  }
+
+  .info-topic {
+    font-size: 1rem;
+  }
+
+  .info-bullet-list li, .info-plain-text {
+    font-size: 0.9rem;
+  }
+
+  .btn-back-link {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+}
+

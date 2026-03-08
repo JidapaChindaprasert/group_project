@@ -55,8 +55,10 @@
 .course-section {
   display: flex;
   gap: 100px;
-  margin-bottom: 150px;
+  min-height: 100vh;
   align-items: center;
+  padding: 60px 0;
+  box-sizing: border-box;
 }
 
 /**/
@@ -234,4 +236,18 @@
   height: 40px;
   object-fit: contain;
   margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .admission-layout {
+    padding: 100px 5% 40px 5%;
+  }
+
+  .header-text {
+    font-size: 2.2rem;
+  }
+
+  .admission-top-bar {
+    margin-bottom: 40px;
+  }
 }

@@ -24,37 +24,39 @@ const careersContinue = [
 export default function ContinuingProgram() {
     return (
         <div className="continuing-program-page">
-            <div className="continuing-program-header">
-                <h1 className="continuing-program-title-en">
-                    COMPUTER AND IOT <span>(Continuing program)</span>
-                </h1>
-                <p className="continuing-program-subtitle-en">Bachelor of Engineering</p>
-            </div>
-
-            <div className="continuing-program-content">
-                <div className="continuing-program-hero-card">
-                    <h2 className="continuing-program-card-title">
-                        ทำไมต้องเรียนไอโอทีหลักสูตร<br />ต่อเนื่องที่ลาดกระบัง?
-                    </h2>
-                    <div className="continuing-program-divider"></div>
-                    <p className="continuing-program-card-text">
-                        หลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ มุ่งเน้นไปที่การศึกษา
-                        การเชื่อมโยงองค์ประกอบของโลกดิจิทัลเข้าด้วยกัน ทั้งศึกษาที่เรียน
-                        ในหลักสูตรนี้จะได้ศึกษาและปฏิบัติเกี่ยวข้องกับด้านเทคโนโลยี ระบบ
-                        ไอโอทีและสารสนเทศโดยอาศัยความรู้พื้นฐาน ทั้งด้านซอฟต์แวร์
-                        ประกอบด้วย การเขียนโปรแกรมคอมพิวเตอร์ การพัฒนาระบบ
-                        ซอฟต์แวร์และแอพพลิเคชัน และ ด้านฮาร์ดแวร์ได้แก่ การพัฒนา
-                        อุปกรณ์อิเล็กทรอนิกส์อัจฉริยะ และ สมาร์ทเซนเซอร์ รวมถึงการ
-                        เชื่อมโยงเข้าหากันด้วย การศึกษาด้านการสื่อสาร และ เครือข่าย
-                        ไปจนถึงการประยุกต์ใช้เทคโนโลยีปัญญาประดิษฐ์และวิทยาการ
-                        ข้อมูล โดยผสมผสานความรู้ต่างๆ เหล่านี้เข้ากับกระบวนการทาง
-                        วิศวกรรมศาสตร์ คณิตศาสตร์ เพื่อออกแบบสร้างนวัตกรรมใหม่ๆ
-                        รวมถึงการใช้งานในอุตสาหกรรม ที่ต้องการระบบไอโอทีและไอที
-                        ส่งเสริมให้นักศึกษาต่อยอดนวัตกรรมของตนเอง เพื่อผลิตใช้หรือ
-                        ทำเป็นสตาร์ทอัพเพื่อสร้างธุรกิจของตนเองได้
-                    </p>
+            <section className="continuing-program-hero-section">
+                <div className="continuing-program-header">
+                    <h1 className="continuing-program-title-en">
+                        COMPUTER AND IOT <span>(Continuing program)</span>
+                    </h1>
+                    <p className="continuing-program-subtitle-en">Bachelor of Engineering</p>
                 </div>
-            </div>
+
+                <div className="continuing-program-content">
+                    <div className="continuing-program-hero-card">
+                        <h2 className="continuing-program-card-title">
+                            ทำไมต้องเรียนไอโอทีหลักสูตร<br />ต่อเนื่องที่ลาดกระบัง?
+                        </h2>
+                        <div className="continuing-program-divider"></div>
+                        <p className="continuing-program-card-text">
+                            หลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ มุ่งเน้นไปที่การศึกษา
+                            การเชื่อมโยงองค์ประกอบของโลกดิจิทัลเข้าด้วยกัน ทั้งศึกษาที่เรียน
+                            ในหลักสูตรนี้จะได้ศึกษาและปฏิบัติเกี่ยวข้องกับด้านเทคโนโลยี ระบบ
+                            ไอโอทีและสารสนเทศโดยอาศัยความรู้พื้นฐาน ทั้งด้านซอฟต์แวร์
+                            ประกอบด้วย การเขียนโปรแกรมคอมพิวเตอร์ การพัฒนาระบบ
+                            ซอฟต์แวร์และแอพพลิเคชัน และ ด้านฮาร์ดแวร์ได้แก่ การพัฒนา
+                            อุปกรณ์อิเล็กทรอนิกส์อัจฉริยะ และ สมาร์ทเซนเซอร์ รวมถึงการ
+                            เชื่อมโยงเข้าหากันด้วย การศึกษาด้านการสื่อสาร และ เครือข่าย
+                            ไปจนถึงการประยุกต์ใช้เทคโนโลยีปัญญาประดิษฐ์และวิทยาการ
+                            ข้อมูล โดยผสมผสานความรู้ต่างๆ เหล่านี้เข้ากับกระบวนการทาง
+                            วิศวกรรมศาสตร์ คณิตศาสตร์ เพื่อออกแบบสร้างนวัตกรรมใหม่ๆ
+                            รวมถึงการใช้งานในอุตสาหกรรม ที่ต้องการระบบไอโอทีและไอที
+                            ส่งเสริมให้นักศึกษาต่อยอดนวัตกรรมของตนเอง เพื่อผลิตใช้หรือ
+                            ทำเป็นสตาร์ทอัพเพื่อสร้างธุรกิจของตนเองได้
+                        </p>
+                    </div>
+                </div>
+            </section>
 
             <div className="continuing-program-career-section">
                 <div className="continuing-program-career-header">

@@ -1,10 +1,11 @@
 import { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './course.css';
 
 const PhysIoT = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState<string | null>(
     location.state?.activeTab || null
@@ -154,6 +155,9 @@ const PhysIoT = () => {
   return (
     <div className="iot-page-container">
       <div className="iot-header-white">
+        <button className="btn-back-link" onClick={() => navigate('/admission')}>
+          ← Back to Admission
+        </button>
         <h1 className="course-main-title">B.SC. INDUSTRIAL PHYSICS AND B.ENG. IOT SYSTEM AND INFORMATION</h1>
         <p className="course-type-label">Bachelor of Science and Engineering</p>
       </div>

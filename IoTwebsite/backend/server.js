@@ -564,7 +564,7 @@ app.get(/.*/, (req, res) => {
 
 // 🚀 Start Server
 // (คุณสามารถเปลี่ยนเลข 3001 เป็น 7300 ได้เลยถ้าต้องการล็อคพอร์ตไว้ในโค้ด)
-const PORT = process.env.PORT || 7300;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
