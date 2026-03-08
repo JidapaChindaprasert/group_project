@@ -556,7 +556,7 @@ app.use(express.static(path.join(__dirname, "dist")));
 
 // 2. Catch-all Route: ถ้าผู้ใช้เข้า URL อื่นๆ ที่ไม่ใช่ API ให้ส่งไฟล์ index.html ของ React ไปให้
 // (สิ่งนี้จำเป็นมาก เพื่อให้ React Router เปลี่ยนหน้าเว็บได้โดยไม่ติด Error 404)
-app.get("*", (req, res) => {
+app.get("(.*)", (req, res) => {
     res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
