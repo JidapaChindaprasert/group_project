@@ -26,10 +26,10 @@ function Home() {
             <p className="description">
               King Mongkut's Institute of Technology Ladkrabang
             </p>
-            <div className="button-group">
+            {/* <div className="button-group">
               <button className="btn-primary">อะไรไม่รู้</button>
               <button className="btn-secondary">สวยดีแปะไว้ก่อน</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
