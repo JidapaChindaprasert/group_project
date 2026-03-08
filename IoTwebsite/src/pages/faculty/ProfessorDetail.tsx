@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Mail, ArrowLeft, GraduationCap, Microscope, Award } from "lucide-react";
 import "./ProfessorDetail.css";
 import EducationSection from "./EducationSection";
 import ResearchSection from "./ResearchSection";
@@ -13,6 +14,7 @@ export default function ProfessorDetail() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!id) return;
 
     const fetchProfessor = async () => {
@@ -35,23 +37,30 @@ export default function ProfessorDetail() {
   }, [id]);
 
   if (loading) {
-    return <div className="detail-container"><div className="detail-content">Loading...</div></div>;
+    return (
+      <div className="detail-container">
+        <div className="detail-loading-wrapper">
+          <div className="detail-spinner"></div>
+          <p>Loading Member Profile...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error || !person) {
     return (
       <div className="detail-container">
-        <div className="detail-content">
-          <h2>{error || "Professor Not Found"}</h2>
-          <button onClick={() => navigate(-1)} style={{ marginTop: '20px', padding: '10px 20px', cursor: 'pointer' }}>
-            Go Back
+        <div className="detail-error-card">
+          <Award size={48} color="#ef4444" />
+          <h2>{error || "Member Not Found"}</h2>
+          <button onClick={() => navigate(-1)} className="back-faculty-btn">
+            <ArrowLeft size={18} /> Go Back
           </button>
         </div>
       </div>
     );
   }
 
-  // format data for components
   const headerPerson = {
     name: person.name_th,
     position: person.position,
@@ -65,24 +74,55 @@ export default function ProfessorDetail() {
 
   return (
     <div className="detail-container">
-      <div className="detail-content">
-        {/* LEFT SIDE: Research */}
-        <div className="left-section">
-          {person.image ? (
-            <img src={person.image} alt={person.name_th} style={{ width: '100%', borderRadius: '8px', marginBottom: '20px', objectFit: 'cover' }} />
-          ) : (
-            <img src="/default-professor.png" alt={person.name_th} style={{ width: '100%', borderRadius: '8px', marginBottom: '20px', objectFit: 'cover' }} />
+      {/* Decorative Background Elements */}
+      <div className="detail-bg-accent-1"></div>
+      <div className="detail-bg-accent-2"></div>
+
+      <div className="detail-content fade-in-section">
+        <div className="detail-header-wrapper">
+          <DetailHeader person={headerPerson} />
+          {person.email && (
+            <div className="prof-contact-meta">
+              <Mail size={16} />
+              <span>{person.email}</span>
+            </div>
           )}
-          <ResearchSection research={person.research || []} />
         </div>
 
-        {/* RIGHT SIDE: Info */}
-        <div className="right-section">
-          <DetailHeader person={headerPerson} />
-          <EducationSection education={educationData} />
-          <button onClick={() => navigate(-1)} style={{ marginTop: '40px', padding: '10px 20px', background: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-            ← Back to Faculty
-          </button>
+        <div className="detail-main-grid">
+          {/* LEFT SIDE: Image & Research Highlights */}
+          <div className="left-section">
+            <div className="prof-image-container reveal-image">
+              {person.image ? (
+                <img src={person.image} alt={person.name_th} className="prof-detail-image" />
+              ) : (
+                <img src="/default-professor.png" alt={person.name_th} className="prof-detail-image" />
+              )}
+            </div>
+
+            <div className="section-divider">
+              <Microscope size={20} />
+              <span>Research & Publications</span>
+            </div>
+            <ResearchSection research={person.research || []} />
+          </div>
+
+          {/* RIGHT SIDE: Academic Info */}
+          <div className="right-section">
+            <div className="section-divider">
+              <GraduationCap size={20} />
+              <span>Academic Background</span>
+            </div>
+
+            <EducationSection education={educationData} />
+
+            <div className="back-button-container">
+              <button onClick={() => navigate(-1)} className="back-faculty-btn premium-btn">
+                <ArrowLeft size={20} />
+                <span>Back to Faculty</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

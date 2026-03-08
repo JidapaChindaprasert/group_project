@@ -1,25 +1,30 @@
+import { UserCheck } from "lucide-react";
 
-
-// Update type to accept person object
 type Person = {
   name: string;
   position?: string;
   email?: string;
-  // Add englishName if you add it to FacultyData later
-  englishName?: string; 
+  englishName?: string;
 };
 
 function DetailHeader({ person }: { person: Person }) {
   return (
-    <div className="header-content">
-      <h1 className="prof-name-th">{person.name}</h1>
-      
-      {/* Optional: Display English Name if data exists */}
-      {person.englishName && (
-        <div className="prof-name-en">{person.englishName}</div>
+    <div className="detail-header-container">
+      <div className="header-identity-block">
+        <div className="name-indicator"></div>
+        <h1 className="prof-name-main">{person.name}</h1>
+      </div>
+
+      {person.position && (
+        <div className="prof-position-badge">
+          <UserCheck size={14} />
+          <span>{person.position}</span>
+        </div>
       )}
 
-      <div className="prof-position">{person.position}</div>
+      {person.englishName && (
+        <div className="prof-name-en-sub">{person.englishName}</div>
+      )}
     </div>
   );
 }

@@ -11,18 +11,22 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:7300',
+        // target: 'http://localhost:3001',
         changeOrigin: true,
       },
       '/professors': {
         target: 'http://localhost:7300',
+        // target: 'http://localhost:3001',
         changeOrigin: true,
       },
       '/staff': {
         target: 'http://localhost:7300',
+        // target: 'http://localhost:3001',
         changeOrigin: true,
       },
       '/uploads': {
         target: 'http://localhost:7300',
+        // target: 'http://localhost:3001',
         changeOrigin: true,
       }
     }

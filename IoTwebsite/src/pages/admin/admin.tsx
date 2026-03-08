@@ -37,8 +37,8 @@ export default function Admin() {
     const [editingCourseId, setEditingCourseId] = useState<string | null>(null);
     const [editCourseForm, setEditCourseForm] = useState<any>(null);
     const [newCourseForm, setNewCourseForm] = useState({
-        id: '', name: '', description: '', col: 1, row: 1,
-        mobile_col: 1, mobile_row: 1, plan_group: '', plan_label: ''
+        id: '', name: '', description: '', col: 1, row: 1, row_span: 1, class_name: '',
+        mobile_col: 1, mobile_row: 1, mobile_col_span: 1, mobile_row_span: 1, plan_group: '', plan_label: ''
     });
 
     // --- FETCHERS ---
@@ -86,7 +86,13 @@ export default function Admin() {
         try {
             const res = await fetch(`/api/curriculum/${currProgram}/${currSelectedYear}`);
             const data = await res.json();
-            setCurrCourses(data);
+            // Sort by Column, then Row, then Name to match the visual curriculum structure
+            const sortedData = [...data].sort((a, b) => {
+                if (a.col !== b.col) return a.col - b.col;
+                if (a.row !== b.row) return a.row - b.row;
+                return (a.name || "").localeCompare(b.name || "");
+            });
+            setCurrCourses(sortedData);
         } catch (err) { console.error(err); }
     };
 
@@ -242,8 +248,8 @@ export default function Admin() {
             });
             if (res.ok) {
                 setNewCourseForm({
-                    id: '', name: '', description: '', col: 1, row: 1,
-                    mobile_col: 1, mobile_row: 1, plan_group: '', plan_label: ''
+                    id: '', name: '', description: '', col: 1, row: 1, row_span: 1, class_name: '',
+                    mobile_col: 1, mobile_row: 1, mobile_col_span: 1, mobile_row_span: 1, plan_group: '', plan_label: ''
                 });
                 fetchCurrCourses();
             }
@@ -442,26 +448,130 @@ export default function Admin() {
                     </select>
                     <button onClick={handleSaveCurrMetadata} className="btn-save" disabled={isSavingCurr}>Save PDF Meta</button>
                 </div>
-                <input placeholder="PDF URL" value={currMetadata.pdfUrl} onChange={(e) => setCurrMetadata({ ...currMetadata, pdfUrl: e.target.value })} className="edit-input" style={{ width: '100%', marginBottom: '1rem' }} />
+                <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                    <input placeholder="PDF URL" value={currMetadata.pdfUrl} onChange={(e) => setCurrMetadata({ ...currMetadata, pdfUrl: e.target.value })} className="edit-input" style={{ flex: 2 }} />
+                    <input placeholder="PDF Label" value={currMetadata.pdfLabel} onChange={(e) => setCurrMetadata({ ...currMetadata, pdfLabel: e.target.value })} className="edit-input" style={{ flex: 1 }} />
+                </div>
 
                 <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Courses</h3>
-                <form onSubmit={handleNewCourseSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 100px 100px', gap: '0.5rem', marginBottom: '1rem' }}>
+                <form onSubmit={handleNewCourseSubmit} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem', marginBottom: '1rem', background: '#333', padding: '1rem', borderRadius: '8px' }}>
                     <input placeholder="ID" value={newCourseForm.id} onChange={(e) => setNewCourseForm({ ...newCourseForm, id: e.target.value })} className="edit-input" required />
                     <input placeholder="Name" value={newCourseForm.name} onChange={(e) => setNewCourseForm({ ...newCourseForm, name: e.target.value })} className="edit-input" required />
-                    <input type="number" value={newCourseForm.col} onChange={(e) => setNewCourseForm({ ...newCourseForm, col: Number(e.target.value) })} className="edit-input" />
-                    <button type="submit" className="btn-save">Add</button>
+                    <input placeholder="Desc" value={newCourseForm.description} onChange={(e) => setNewCourseForm({ ...newCourseForm, description: e.target.value })} className="edit-input" />
+                    <input placeholder="Class (optional)" value={newCourseForm.class_name} onChange={(e) => setNewCourseForm({ ...newCourseForm, class_name: e.target.value })} className="edit-input" />
+
+                    <div style={{ display: 'flex', gap: '0.4rem', borderLeft: '1px solid #555', paddingLeft: '0.5rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.65rem', color: '#aaa', marginBottom: '2px' }}>Semester</span>
+                            <input type="number" value={newCourseForm.col} onChange={(e) => setNewCourseForm({ ...newCourseForm, col: Number(e.target.value) })} className="edit-input" style={{ width: '45px', padding: '5px' }} />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.65rem', color: '#aaa', marginBottom: '2px' }}>Order</span>
+                            <input type="number" value={newCourseForm.row} onChange={(e) => setNewCourseForm({ ...newCourseForm, row: Number(e.target.value) })} className="edit-input" style={{ width: '45px', padding: '5px' }} />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.65rem', color: '#aaa', marginBottom: '2px' }}>Span</span>
+                            <input type="number" value={newCourseForm.row_span} onChange={(e) => setNewCourseForm({ ...newCourseForm, row_span: Number(e.target.value) })} className="edit-input" style={{ width: '45px', padding: '5px' }} />
+                        </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.3rem', borderLeft: '1px solid #555', paddingLeft: '0.5rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.6rem', color: '#6366f1', marginBottom: '2px' }}>mC</span>
+                            <input type="number" value={newCourseForm.mobile_col} onChange={(e) => setNewCourseForm({ ...newCourseForm, mobile_col: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '5px' }} />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.6rem', color: '#6366f1', marginBottom: '2px' }}>mR</span>
+                            <input type="number" value={newCourseForm.mobile_row} onChange={(e) => setNewCourseForm({ ...newCourseForm, mobile_row: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '5px' }} />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.6rem', color: '#6366f1', marginBottom: '2px' }}>mCS</span>
+                            <input type="number" value={newCourseForm.mobile_col_span} onChange={(e) => setNewCourseForm({ ...newCourseForm, mobile_col_span: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '5px' }} />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.6rem', color: '#6366f1', marginBottom: '2px' }}>mRS</span>
+                            <input type="number" value={newCourseForm.mobile_row_span} onChange={(e) => setNewCourseForm({ ...newCourseForm, mobile_row_span: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '5px' }} />
+                        </div>
+                    </div>
+
+                    <input type="number" placeholder="Group" value={newCourseForm.plan_group} onChange={(e) => setNewCourseForm({ ...newCourseForm, plan_group: e.target.value })} className="edit-input" />
+                    <input placeholder="Plan Label" value={newCourseForm.plan_label} onChange={(e) => setNewCourseForm({ ...newCourseForm, plan_label: e.target.value })} className="edit-input" />
+
+                    <button type="submit" className="btn-save">Add Course</button>
                 </form>
 
                 <table className="admin-table">
-                    <thead><tr><th>ID</th><th>Name</th><th>Actions</th></tr></thead>
+                    <thead><tr><th>ID</th><th>Name</th><th>Col</th><th>Row</th><th>Actions</th></tr></thead>
                     <tbody>
                         {currCourses.map(c => (
                             <tr key={c.id}>
                                 {editingCourseId === c.id ? (
-                                    <><td>{c.id}</td><td><input value={editCourseForm.name} onChange={(e) => setEditCourseForm({ ...editCourseForm, name: e.target.value })} className="edit-input" /></td>
-                                        <td><button onClick={() => handleCourseSaveClick(c.id)} className="btn-save">V</button></td></>
+                                    <td colSpan={3}>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', background: '#444', padding: '1rem' }}>
+                                            <input value={editCourseForm.name} onChange={(e) => setEditCourseForm({ ...editCourseForm, name: e.target.value })} className="edit-input" placeholder="Name" />
+                                            <input value={editCourseForm.description || ''} onChange={(e) => setEditCourseForm({ ...editCourseForm, description: e.target.value })} className="edit-input" placeholder="Desc" />
+                                            <input value={editCourseForm.className || ''} onChange={(e) => setEditCourseForm({ ...editCourseForm, className: e.target.value })} className="edit-input" placeholder="Class" />
+
+                                            <div style={{ display: 'flex', gap: '0.4rem', gridColumn: 'span 3', borderTop: '1px solid #555', paddingTop: '0.5rem' }}>
+                                                <div style={{ display: 'flex', gap: '0.2rem', alignItems: 'center' }}>
+                                                    <span style={{ color: '#fff', fontSize: '0.75rem', fontWeight: 'bold' }}>Grid:</span>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <span style={{ fontSize: '0.6rem', color: '#aaa' }}>Semester</span>
+                                                        <input type="number" value={editCourseForm.col} onChange={(e) => setEditCourseForm({ ...editCourseForm, col: Number(e.target.value) })} className="edit-input" style={{ width: '45px', padding: '4px' }} />
+                                                    </div>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <span style={{ fontSize: '0.6rem', color: '#aaa' }}>Order</span>
+                                                        <input type="number" value={editCourseForm.row} onChange={(e) => setEditCourseForm({ ...editCourseForm, row: Number(e.target.value) })} className="edit-input" style={{ width: '45px', padding: '4px' }} />
+                                                    </div>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <span style={{ fontSize: '0.6rem', color: '#aaa' }}></span>
+                                                        <input type="number" value={editCourseForm.rowSpan || 1} onChange={(e) => setEditCourseForm({ ...editCourseForm, rowSpan: Number(e.target.value) })} className="edit-input" style={{ width: '45px', padding: '4px' }} />
+                                                    </div>
+                                                </div>
+
+                                                <div style={{ display: 'flex', gap: '0.2rem', alignItems: 'center', marginLeft: '1rem' }}>
+                                                    <span style={{ color: '#fff', fontSize: '0.75rem', fontWeight: 'bold' }}>Mob:</span>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <span style={{ fontSize: '0.6rem', color: '#6366f1' }}>Col</span>
+                                                        <input type="number" value={editCourseForm.mobileCol} onChange={(e) => setEditCourseForm({ ...editCourseForm, mobileCol: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '4px' }} />
+                                                    </div>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <span style={{ fontSize: '0.6rem', color: '#6366f1' }}>Row</span>
+                                                        <input type="number" value={editCourseForm.mobileRow} onChange={(e) => setEditCourseForm({ ...editCourseForm, mobileRow: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '4px' }} />
+                                                    </div>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <span style={{ fontSize: '0.6rem', color: '#6366f1' }}>CS</span>
+                                                        <input type="number" value={editCourseForm.mobileColSpan || 1} onChange={(e) => setEditCourseForm({ ...editCourseForm, mobileColSpan: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '4px' }} />
+                                                    </div>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <span style={{ fontSize: '0.6rem', color: '#6366f1' }}>RS</span>
+                                                        <input type="number" value={editCourseForm.mobileRowSpan || 1} onChange={(e) => setEditCourseForm({ ...editCourseForm, mobileRowSpan: Number(e.target.value) })} className="edit-input" style={{ width: '38px', padding: '4px' }} />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style={{ display: 'flex', gap: '0.2rem' }}>
+                                                <input value={editCourseForm.planGroup || ''} onChange={(e) => setEditCourseForm({ ...editCourseForm, planGroup: e.target.value })} className="edit-input" style={{ width: '60px' }} placeholder="Grp" />
+                                                <input value={editCourseForm.planLabel || ''} onChange={(e) => setEditCourseForm({ ...editCourseForm, planLabel: e.target.value })} className="edit-input" placeholder="Plan Label" />
+                                            </div>
+
+                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                <button onClick={() => handleCourseSaveClick(c.id)} className="btn-save">Save</button>
+                                                <button onClick={() => setEditingCourseId(null)} className="btn-cancel">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </td>
                                 ) : (
-                                    <><td>{c.id}</td><td>{c.name}</td><td><button onClick={() => handleCourseEditClick(c)} className="btn-edit">E</button><button onClick={() => handleCourseDeleteClick(c.id)} className="btn-cancel">X</button></td></>
+                                    <>
+                                        <td>{c.id}</td>
+                                        <td>{c.name}</td>
+                                        <td>{c.col}</td>
+                                        <td>{c.row}</td>
+                                        <td>
+                                            <button onClick={() => handleCourseEditClick(c)} className="btn-edit">E</button>
+                                            <button onClick={() => handleCourseDeleteClick(c.id)} className="btn-cancel">X</button>
+                                        </td>
+                                    </>
                                 )}
                             </tr>
                         ))}

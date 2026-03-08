@@ -104,22 +104,41 @@ const getProfessors = (req, res) => {
 app.get("/professors", getProfessors);
 app.get("/api/professors", getProfessors);
 
-// 📥 GET: Single professor
+// 📥 GET: Single professor or staff
 const getSingleProfessor = (req, res) => {
     const { id } = req.params;
+
+    // First try professors table
     db.query("SELECT * FROM professors WHERE id = ?", [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
-        if (results.length === 0) return res.status(404).json({ error: "Professor not found" });
 
-        const professor = {
-            ...results[0],
-            education_history: safeJsonParse(results[0].education_history),
-            expertise: safeJsonParse(results[0].expertise),
-            research: safeJsonParse(results[0].research),
-            isHead: Boolean(results[0].is_head),
-            is_head: Boolean(results[0].is_head)
-        };
-        res.json(professor);
+        if (results.length > 0) {
+            const professor = {
+                ...results[0],
+                education_history: safeJsonParse(results[0].education_history),
+                expertise: safeJsonParse(results[0].expertise),
+                research: safeJsonParse(results[0].research),
+                isHead: Boolean(results[0].is_head),
+                is_head: Boolean(results[0].is_head)
+            };
+            return res.json(professor);
+        }
+
+        // If not found in professors, try staff table
+        db.query("SELECT * FROM staff WHERE id = ?", [id], (err, staffResults) => {
+            if (err) return res.status(500).json({ error: err.message });
+            if (staffResults.length === 0) return res.status(404).json({ error: "Member not found" });
+
+            const staffMember = {
+                ...staffResults[0],
+                education_history: safeJsonParse(staffResults[0].education_history),
+                expertise: safeJsonParse(staffResults[0].expertise),
+                research: [], // Staff usually don't have research column in schema
+                isHead: false,
+                is_head: false
+            };
+            res.json(staffMember);
+        });
     });
 };
 
@@ -394,7 +413,7 @@ app.put("/api/curriculum/:program/:year/courses/:id", (req, res) => {
     const { program, year, id } = req.params;
     const {
         name, description, col, row, row_span, class_name,
-        mobile_col, mobile_row, plan_group, plan_label
+        mobile_col, mobile_row, mobile_col_span, mobile_row_span, plan_group, plan_label
     } = req.body;
 
     const tableMap = {
@@ -408,13 +427,13 @@ app.put("/api/curriculum/:program/:year/courses/:id", (req, res) => {
     const sql = `
         UPDATE ${tableName} 
         SET name = ?, description = ?, \`col\` = ?, \`row\` = ?, row_span = ?, 
-            class_name = ?, mobile_col = ?, mobile_row = ?, plan_group = ?, plan_label = ?
+            class_name = ?, mobile_col = ?, mobile_row = ?, mobile_col_span = ?, mobile_row_span = ?, plan_group = ?, plan_label = ?
         WHERE id = ? AND curriculum_year = ?
     `;
 
     db.query(sql, [
         name, description, col, row, row_span, class_name,
-        mobile_col, mobile_row, plan_group, plan_label, id, year
+        mobile_col, mobile_row, mobile_col_span, mobile_row_span, plan_group, plan_label, id, year
     ], (err, result) => {
         if (err) {
             console.error("❌ Course Update Error:", err);
@@ -500,7 +519,7 @@ app.post("/api/curriculum/:program/:year/courses", (req, res) => {
     const { program, year } = req.params;
     const {
         id, name, description, col, row, row_span, class_name,
-        mobile_col, mobile_row, plan_group, plan_label
+        mobile_col, mobile_row, mobile_col_span, mobile_row_span, plan_group, plan_label
     } = req.body;
 
     const tableMap = {
@@ -513,13 +532,13 @@ app.post("/api/curriculum/:program/:year/courses", (req, res) => {
 
     const sql = `
         INSERT INTO ${tableName} 
-        (id, curriculum_year, name, description, \`col\`, \`row\`, row_span, class_name, mobile_col, mobile_row, plan_group, plan_label)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (id, curriculum_year, name, description, \`col\`, \`row\`, row_span, class_name, mobile_col, mobile_row, mobile_col_span, mobile_row_span, plan_group, plan_label)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(sql, [
         id, year, name, description, col || 1, row || 1, row_span || 1, class_name || null,
-        mobile_col || col || 1, mobile_row || row || 1, plan_group || null, plan_label || null
+        mobile_col || col || 1, mobile_row || row || 1, mobile_col_span || 1, mobile_row_span || 1, plan_group || null, plan_label || null
     ], (err, result) => {
         if (err) {
             console.error("❌ Course Insertion Error:", err);
