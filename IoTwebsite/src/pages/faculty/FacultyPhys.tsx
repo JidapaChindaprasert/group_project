@@ -9,6 +9,7 @@ import "./Faculty.css";
 export default function FacultyPhysics() {
   const navigate = useNavigate();
   const [professors, setProfessors] = useState<Professor[]>([]);
+  const [staffData, setStaffData] = useState<Professor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMatcherOpen, setIsMatcherOpen] = useState(false);  // ← บรรทัดสำคัญ!
@@ -21,49 +22,48 @@ export default function FacultyPhysics() {
 
   // 🎯 ดึงข้อมูลจาก API
   useEffect(() => {
-    const fetchProfessors = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        // ⚠️ Fetch ALL professors so the matcher can search across departments
-        const response = await fetch("http://localhost:3001/professors");
+        const [profRes, staffRes] = await Promise.all([
+          fetch("http://localhost:3001/professors"),
+          fetch("http://localhost:3001/api/staff")
+        ]);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!profRes.ok || !staffRes.ok) throw new Error("Failed to fetch data");
 
-        const data: Professor[] = await response.json();
-        setProfessors(data);
+        const proms: Professor[] = await profRes.json();
+        const stfs: Professor[] = await staffRes.json();
+
+        setProfessors(proms);
+        setStaffData(stfs);
         setError(null);
       } catch (err) {
         console.error("Fetch error:", err);
-        setError(err instanceof Error ? err.message : "Failed to load professors");
+        setError(err instanceof Error ? err.message : "Failed to load faculty data");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProfessors();
+    fetchData();
   }, []);
 
   // 🔀 แยกข้อมูล: หัวหน้า / อาจารย์คนอื่น / เจ้าหน้าที่
   const { headProfessor, otherProfessors, staff } = useMemo(() => {
-    // Filter ONLY Physics professors for display on this page
     const physProfessors = professors.filter(p => p.department_id === 'phys');
-
-    // กรองแยก อาจารย์ และ เจ้าหน้าที่ ตามตำแหน่ง
-    const allProfessors = physProfessors.filter(p => !p.position?.includes("เจ้าหน้าที่") && !p.position?.includes("นักวิทยาศาสตร์"));
-    const staffList = physProfessors.filter(p => p.position?.includes("เจ้าหน้าที่") || p.position?.includes("นักวิทยาศาสตร์"));
+    const physStaff = staffData.filter(s => s.department_id === 'phys');
 
     // หาหัวหน้าภาควิชา
-    const head = allProfessors.find(p => p.is_head) || allProfessors[0];
-    const others = allProfessors.filter(p => p.id !== head?.id);
+    const head = physProfessors.find(p => p.is_head) || physProfessors[0];
+    const others = physProfessors.filter(p => p.id !== head?.id);
 
     return {
       headProfessor: head,
       otherProfessors: others,
-      staff: staffList
+      staff: physStaff
     };
-  }, [professors]);
+  }, [professors, staffData]);
 
   // 🔄 ฟังก์ชันโหลดข้อมูลใหม่
   const handleRefresh = async () => {

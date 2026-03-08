@@ -30,7 +30,8 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 56px;
+    padding: 120px 56px 56px 56px;
+    /* Increased top padding for fixed navbar */
     box-sizing: border-box;
     scroll-snap-align: start;
 }

@@ -7,6 +7,8 @@ import Faculty from './pages/faculty/FacultyIoT';
 import FacultyPhysics from './pages/faculty/FacultyPhys';
 import ProfessorDetail from './pages/faculty/ProfessorDetail';
 import Admin from './pages/admin/admin';
+import IoT from './pages/admission/IoT';
+import PhysIoT from './pages/admission/PhysIoT';
 
 import Navbar from './components/Navbar';
 import FloatingCalendar from './components/calendar';

@@ -9,6 +9,7 @@ import "./Faculty.css";
 export default function FacultyIoT() {
   const navigate = useNavigate();
   const [professors, setProfessors] = useState<Professor[]>([]);
+  const [staffData, setStaffData] = useState<Professor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMatcherOpen, setIsMatcherOpen] = useState(false);  // ← บรรทัดสำคัญ!
@@ -21,51 +22,48 @@ export default function FacultyIoT() {
 
   // 🎯 ดึงข้อมูลจาก API
   useEffect(() => {
-    const fetchProfessors = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        // ⚠️ เช็คว่า Backend ใช้ /professors หรือ /api/professors
-        // จากรูปแบบเดิมของคุณ น่าจะไม่มี /api นำหน้า
-        // ⚠️ Fetch ALL professors so the matcher can search across departments
-        const response = await fetch("http://localhost:3001/professors");
+        const [profRes, staffRes] = await Promise.all([
+          fetch("http://localhost:3001/professors"),
+          fetch("http://localhost:3001/api/staff")
+        ]);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!profRes.ok || !staffRes.ok) throw new Error("Failed to fetch data");
 
-        const data: Professor[] = await response.json();
-        setProfessors(data);
+        const proms: Professor[] = await profRes.json();
+        const stfs: Professor[] = await staffRes.json();
+
+        setProfessors(proms);
+        setStaffData(stfs);
         setError(null);
       } catch (err) {
         console.error("Fetch error:", err);
-        setError(err instanceof Error ? err.message : "Failed to load professors");
+        setError(err instanceof Error ? err.message : "Failed to load faculty data");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProfessors();
+    fetchData();
   }, []);
 
   // 🔀 แยกข้อมูล: หัวหน้า / อาจารย์คนอื่น / เจ้าหน้าที่
   const { headProfessor, otherProfessors, staff } = useMemo(() => {
-    // Filter ONLY IoT professors for display on this page
     const iotProfessors = professors.filter(p => p.department_id === 'iot');
-
-    // กรองแยก อาจารย์ และ เจ้าหน้าที่ ตามตำแหน่ง
-    const allProfessors = iotProfessors.filter(p => !p.position?.includes("เจ้าหน้าที่") && !p.position?.includes("นักวิทยาศาสตร์"));
-    const staffList = iotProfessors.filter(p => p.position?.includes("เจ้าหน้าที่") || p.position?.includes("นักวิทยาศาสตร์"));
+    const iotStaff = staffData.filter(s => s.department_id === 'iot');
 
     // หาหัวหน้าภาควิชา
-    const head = allProfessors.find(p => p.is_head) || allProfessors[0];
-    const others = allProfessors.filter(p => p.id !== head?.id);
+    const head = iotProfessors.find(p => p.is_head) || iotProfessors[0];
+    const others = iotProfessors.filter(p => p.id !== head?.id);
 
     return {
       headProfessor: head,
       otherProfessors: others,
-      staff: staffList
+      staff: iotStaff
     };
-  }, [professors]);
+  }, [professors, staffData]);
 
   // 🔄 ฟังก์ชันโหลดข้อมูลใหม่ (ต้องแก้ URL ให้ตรงกับด้านบน)
   const handleRefresh = async () => {

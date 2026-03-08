@@ -1,10 +1,30 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// 📂 Multer Set up for Image Uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
+
+app.post("/api/upload", upload.single("image"), (req, res) => {
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+    const imageUrl = `http://localhost:3001/uploads/${req.file.filename}`;
+    res.json({ imageUrl });
+});
 
 // 🔗 MySQL Connection
 const db = mysql.createConnection({
@@ -194,6 +214,105 @@ const deleteProfessor = (req, res) => {
 
 app.delete("/professors/:id", deleteProfessor);
 app.delete("/api/professors/:id", deleteProfessor);
+
+// ------------------- STAFF ENDPOINTS -------------------
+
+// 📥 GET: All staff
+const getStaff = (req, res) => {
+    const { department } = req.query;
+    let sql = "SELECT * FROM staff";
+    const values = [];
+
+    if (department) {
+        sql += " WHERE department_id = ?";
+        values.push(department);
+    }
+
+    sql += " ORDER BY department_id, sort_order, name_th";
+
+    db.query(sql, values, (err, results) => {
+        if (err) {
+            console.error("Query Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+
+        const data = results.map(row => ({
+            ...row,
+            education_history: safeJsonParse(row.education_history),
+            expertise: safeJsonParse(row.expertise),
+            research: safeJsonParse(row.research || '[]')
+        }));
+
+        res.json(data);
+    });
+};
+
+app.get("/api/staff", getStaff);
+app.get("/staff", getStaff);
+
+// 📤 PUT: Update staff
+app.put("/api/staff/:id", (req, res) => {
+    const { id } = req.params;
+    const {
+        department_id, name_th, position, image, email,
+        education_history, expertise, sort_order
+    } = req.body;
+
+    const sql = `
+        UPDATE staff 
+        SET department_id = ?, name_th = ?, position = ?, image = ?, email = ?, 
+            education_history = ?, expertise = ?, sort_order = ?
+        WHERE id = ?
+    `;
+
+    const values = [
+        department_id, name_th, position, image, email,
+        formatJson(education_history), formatJson(expertise), sort_order, id
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ message: "Staff updated successfully" });
+    });
+});
+
+// ➕ POST: Create staff
+app.post("/api/staff", (req, res) => {
+    const {
+        id, department_id, name_th, position, image, email,
+        education_history, expertise, sort_order
+    } = req.body;
+
+    const sql = `
+        INSERT INTO staff 
+        (id, department_id, name_th, position, image, email, 
+         education_history, expertise, sort_order)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    const values = [
+        id, department_id, name_th, position, image, email,
+        formatJson(education_history || []),
+        formatJson(expertise || []),
+        sort_order || 0
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ message: "Staff created successfully" });
+    });
+});
+
+// 🗑️ DELETE: Delete staff
+app.delete("/api/staff/:id", (req, res) => {
+    const { id } = req.params;
+    db.query("DELETE FROM staff WHERE id = ?", [id], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ message: "Staff deleted successfully" });
+    });
+});
+
+// ------------------- END STAFF -------------------
 
 // 🗓️ GET: All important dates
 app.get("/api/important-dates", (req, res) => {

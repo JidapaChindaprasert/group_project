@@ -72,13 +72,13 @@ export default function Academic() {
             </div>
 
             {/* Detailed Section below Hero Cards */}
-            <div id="iot-system">
+            <div id="iot-system" style={{ scrollMarginTop: '100px' }}>
                 <IOTSystem />
             </div>
-            <div id="physiot-system">
+            <div id="physiot-system" style={{ scrollMarginTop: '100px' }}>
                 <PHYIOTSystem />
             </div>
-            <div id="continuing-program">
+            <div id="continuing-program" style={{ scrollMarginTop: '100px' }}>
                 <ContinuingProgram />
             </div>
         </div>

@@ -1,28 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 export default function Navbar() {
-	// สร้าง State สำหรับเปิด/ปิดเมนูบนมือถือ (ค่าเริ่มต้นคือ false = ปิดอยู่)
 	const [isOpen, setIsOpen] = useState(false);
+	const [isVisible, setIsVisible] = useState(true);
+	const [lastScrollY, setLastScrollY] = useState(0);
 
-	// ฟังก์ชันสลับสถานะเปิด/ปิด
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
 	};
 
-	// ฟังก์ชันปิดเมนูเวลาที่กดเลือกลิงก์แล้ว (สำหรับมือถือ)
 	const closeMenu = () => {
 		setIsOpen(false);
 	};
 
+	useEffect(() => {
+		const controlNavbar = () => {
+			if (window.scrollY > lastScrollY && window.scrollY > 100) {
+				// Scrolling down
+				setIsVisible(false);
+			} else {
+				// Scrolling up
+				setIsVisible(true);
+			}
+			setLastScrollY(window.scrollY);
+		};
+
+		window.addEventListener('scroll', controlNavbar);
+		return () => {
+			window.removeEventListener('scroll', controlNavbar);
+		};
+	}, [lastScrollY]);
+
 	return (
-		<nav className="navbar">
+		<nav className={`navbar ${!isVisible ? 'navbar-hidden' : ''}`}>
 			<div className="nav-brand">
-				{/* <img src="/logo.png" alt="Logo" className="logo-img" /> ภาพมาเอามาใส่ด้วย!!! */}
-				<span style={{ color: '#ff6600', fontWeight: 'bold', fontSize: '1.5rem' }}>
-					IOTE <span style={{ color: 'white', fontSize: '1rem' }}>KMITL</span>
-				</span>
+				<NavLink to="/">
+					<img src="/Home_image/image_01.png" alt="Logo" className="logo-img" />
+				</NavLink>
 			</div>
 			<button className="hamburger" onClick={toggleMenu}>
 				{isOpen ? '✖' : '☰'}

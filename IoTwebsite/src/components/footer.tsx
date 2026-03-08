@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
           {/* Logo Column */}
           <div className="footer-logo">
             <img
-              src="/path/to/logo.png"
+              src="/Home_image/image_01.png"
               alt="iCTE KMITL Logo"
             />
           </div>
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
           {/* Mobile Logo */}
           <div className="footer-mobile-logo">
             <img
-              src="/path/to/logo.png"
+              src="/Home_image/image_01.png"
               alt="iCTE KMITL Logo"
             />
           </div>

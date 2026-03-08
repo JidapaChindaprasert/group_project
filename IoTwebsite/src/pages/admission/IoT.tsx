@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import './course.css';
 
@@ -9,7 +9,7 @@ const IoT = () => {
   const [activeTab, setActiveTab] = useState<string | null>(
     location.state?.activeTab || null
   );
-  
+
   const [openIndices, setOpenIndices] = useState<number[]>([]);
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -115,7 +115,7 @@ const IoT = () => {
   };
 
   const toggleAccordion = (index: number) => {
-    setOpenIndices(prev => 
+    setOpenIndices(prev =>
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
     );
   };
@@ -130,15 +130,15 @@ const IoT = () => {
       <div className="iot-dark-body">
         <div className="iot-tabs-navigation">
           {['PORTFOLIO', 'QUOTA', 'ADMISSION'].map((tab) => (
-            <button 
+            <button
               key={tab}
               className={`iot-tab-box ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => handleTabClick(tab)} 
+              onClick={() => handleTabClick(tab)}
             >
               <span className="tab-primary-wrapper">
                 <span className="tab-primary">{tab}</span>
               </span>
-      
+
               {activeTab === tab && (
                 <span className="tab-secondary">
                   {tab === 'PORTFOLIO' && 'รับ 75 คน'}
@@ -151,17 +151,16 @@ const IoT = () => {
         </div>
 
         {activeTab && (
-          <div 
-            className={`iot-accordion-list-bg ${
-              activeTab === 'PORTFOLIO' ? 'port-active' : 
-              activeTab === 'QUOTA' ? 'quota-active' : 
-              activeTab === 'ADMISSION' ? 'admission-active' : ''
-          }`} 
-          ref={contentRef}
+          <div
+            className={`iot-accordion-list-bg ${activeTab === 'PORTFOLIO' ? 'port-active' :
+                activeTab === 'QUOTA' ? 'quota-active' :
+                  activeTab === 'ADMISSION' ? 'admission-active' : ''
+              }`}
+            ref={contentRef}
           >
             {admissionData[activeTab].map((item: any, index: number) => (
               <div key={`${activeTab}-${index}`} className="accordion-item-wrap">
-                <div 
+                <div
                   className={`accordion-head-click ${openIndices.includes(index) ? 'is-expanded' : ''}`}
                   onClick={() => toggleAccordion(index)}
                 >
@@ -176,7 +175,7 @@ const IoT = () => {
                       <ul className="info-bullet-list">
                         {item.qual.map((q: string, i: number) => <li key={i}>{q}</li>)}
                       </ul>
-                      
+
                       <h4 className="info-topic">เงื่อนไขการรับสมัคร</h4>
                       <p className="info-plain-text">{item.cond}</p>
 
@@ -185,15 +184,15 @@ const IoT = () => {
                           <h4 className="info-topic">สัดส่วนคะแนน</h4>
                           <ul className="info-bullet-list">
                             {item.scores.map((s: any, i: number) => (
-                              <li key={i}>{s.label}: <span style={{fontWeight: 'bold', color: '#0e34de'}}>{s.val}</span></li>
+                              <li key={i}>{s.label}: <span style={{ fontWeight: 'bold', color: '#0e34de' }}>{s.val}</span></li>
                             ))}
                           </ul>
                         </>
                       )}
-                      
+
                       <h4 className="info-topic">จำนวนที่เปิดรับ</h4>
                       <p className="info-plain-text">{item.slots}</p>
-                      
+
                       <h4 className="info-topic">รายละเอียดเพิ่มเติม</h4>
                       <a href={item.link} target="_blank" rel="noreferrer" className="info-link-text">
                         {item.link}
