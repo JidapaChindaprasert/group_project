@@ -329,6 +329,10 @@ export default function Admin() {
                                             <input value={editFormData.position} onChange={(e) => setEditFormData({ ...editFormData, position: e.target.value })} className="edit-input" placeholder="Position" />
                                             <input value={editFormData.email} onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })} className="edit-input" placeholder="Email" />
                                             <input type="number" value={editFormData.sort_order} onChange={(e) => setEditFormData({ ...editFormData, sort_order: Number(e.target.value) })} className="edit-input" style={{ width: '70px' }} />
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fff' }}>
+                                                <input type="checkbox" checked={editFormData.is_head === 1 || editFormData.is_head === true} onChange={(e) => setEditFormData({ ...editFormData, is_head: e.target.checked ? 1 : 0 })} />
+                                                <span>Head</span>
+                                            </div>
                                             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                                 <input type="file" onChange={(e) => e.target.files && handleImageUpload(e.target.files[0], (url) => setEditFormData({ ...editFormData, image: url }))} />
                                             </div>
