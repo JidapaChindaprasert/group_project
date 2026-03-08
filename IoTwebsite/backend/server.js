@@ -551,7 +551,20 @@ app.delete("/api/curriculum/:program/:year/courses/:id", (req, res) => {
 });
 
 // 🚀 Start Server
-const PORT = process.env.PORT || 3001;
+// 1. สั่งให้ Express ให้บริการไฟล์ Static จากโฟลเดอร์ dist (ไฟล์หน้าเว็บ React)
+app.use(express.static(path.join(__dirname, "dist")));
+
+// 2. Catch-all Route: ถ้าผู้ใช้เข้า URL อื่นๆ ที่ไม่ใช่ API ให้ส่งไฟล์ index.html ของ React ไปให้
+// (สิ่งนี้จำเป็นมาก เพื่อให้ React Router เปลี่ยนหน้าเว็บได้โดยไม่ติด Error 404)
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
+// ==========================================
+
+// 🚀 Start Server
+// (คุณสามารถเปลี่ยนเลข 3001 เป็น 7300 ได้เลยถ้าต้องการล็อคพอร์ตไว้ในโค้ด)
+const PORT = process.env.PORT || 7300; 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
