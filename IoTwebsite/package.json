@@ -5,11 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite & node backend/server.js",
-    "start": "concurrently \"vite\" \"node backend/server.js\"",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "prepare": "husky"
+    "build": "vite build",
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "@types/node": "^24.12.0",
