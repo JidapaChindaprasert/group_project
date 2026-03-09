@@ -136,8 +136,8 @@ const FloatingCalendar: React.FC = () => {
           <button
             onClick={() => handleDateClick(i)}
             className={`
-              calendar-day-btn 
-              ${isSelected ? 'selected' : ''} 
+              calendar-day-btn
+              ${isSelected ? 'selected' : ''}
               ${isToday && !isSelected ? 'today' : ''}
               ${hasEvent ? 'has-event' : ''}
             `}
@@ -157,8 +157,6 @@ const FloatingCalendar: React.FC = () => {
 
   return (
     <div className="app-container">
-
-      {/* --- ส่วนที่เป็นไอคอนลอย (Trigger) --- */}
       <div ref={calendarRef} className="calendar-wrapper">
         <button
           onClick={() => setIsOpen(!isOpen)}

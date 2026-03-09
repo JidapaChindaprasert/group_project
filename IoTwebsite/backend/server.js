@@ -27,11 +27,18 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
 });
 
 // 🔗 MySQL Connection
+// const db = mysql.createConnection({
+//     host: "localhost",
+//     user: "st67050066_iot_website",
+//     password: "TvQa6dZKVCEAtd8s75F9",
+//     database: "st67050066_iot_website"
+// });
+
 const db = mysql.createConnection({
     host: "localhost",
-    user: "st67050066_iot_website",
-    password: "TvQa6dZKVCEAtd8s75F9",
-    database: "st67050066_iot_website"
+    user: "root",
+    password: "Pern06006^_^", // Your local password
+    database: "iotwebsite"      // Your local database name
 });
 
 db.connect(err => {
@@ -154,8 +161,8 @@ const updateProfessor = (req, res) => {
     } = req.body;
 
     const sql = `
-        UPDATE professors 
-        SET department_id = ?, name_th = ?, position = ?, image = ?, email = ?, 
+        UPDATE professors
+        SET department_id = ?, name_th = ?, position = ?, image = ?, email = ?,
             is_head = ?, education_history = ?, expertise = ?, research = ?, sort_order = ?
         WHERE id = ?
     `;
@@ -194,8 +201,8 @@ const createProfessor = (req, res) => {
     } = req.body;
 
     const sql = `
-        INSERT INTO professors 
-        (id, department_id, name_th, position, image, email, is_head, 
+        INSERT INTO professors
+        (id, department_id, name_th, position, image, email, is_head,
          education_history, expertise, research, sort_order)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
@@ -278,8 +285,8 @@ app.put("/api/staff/:id", (req, res) => {
     } = req.body;
 
     const sql = `
-        UPDATE staff 
-        SET department_id = ?, name_th = ?, position = ?, image = ?, email = ?, 
+        UPDATE staff
+        SET department_id = ?, name_th = ?, position = ?, image = ?, email = ?,
             education_history = ?, expertise = ?, sort_order = ?
         WHERE id = ?
     `;
@@ -303,8 +310,8 @@ app.post("/api/staff", (req, res) => {
     } = req.body;
 
     const sql = `
-        INSERT INTO staff 
-        (id, department_id, name_th, position, image, email, 
+        INSERT INTO staff
+        (id, department_id, name_th, position, image, email,
          education_history, expertise, sort_order)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
@@ -425,8 +432,8 @@ app.put("/api/curriculum/:program/:year/courses/:id", (req, res) => {
     if (!tableName) return res.status(400).json({ error: "Invalid program" });
 
     const sql = `
-        UPDATE ${tableName} 
-        SET name = ?, description = ?, \`col\` = ?, \`row\` = ?, row_span = ?, 
+        UPDATE ${tableName}
+        SET name = ?, description = ?, \`col\` = ?, \`row\` = ?, row_span = ?,
             class_name = ?, mobile_col = ?, mobile_row = ?, mobile_col_span = ?, mobile_row_span = ?, plan_group = ?, plan_label = ?
         WHERE id = ? AND curriculum_year = ?
     `;
@@ -531,7 +538,7 @@ app.post("/api/curriculum/:program/:year/courses", (req, res) => {
     if (!tableName) return res.status(400).json({ error: "Invalid program" });
 
     const sql = `
-        INSERT INTO ${tableName} 
+        INSERT INTO ${tableName}
         (id, curriculum_year, name, description, \`col\`, \`row\`, row_span, class_name, mobile_col, mobile_row, mobile_col_span, mobile_row_span, plan_group, plan_label)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
